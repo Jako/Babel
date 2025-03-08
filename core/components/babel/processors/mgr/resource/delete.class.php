@@ -8,7 +8,7 @@
 
 use mikrobi\Babel\Processors\ObjectUpdateProcessor;
 
-class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
+class BabelResourceDeleteProcessor extends ObjectUpdateProcessor
 {
     public $classKey = 'modResource';
     public $objectType = 'resource';
@@ -35,7 +35,7 @@ class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
         }
         $primaryKey = $this->getProperty($this->primaryKeyField, false);
         if ($target === $primaryKey) {
-            return $this->modx->lexicon('babel.resource_err_unlink_of_selflink_not_possible');
+            return $this->modx->lexicon('babel.resource_err_delete_of_selflink_not_possible');
         }
 
         if ($target) {
@@ -68,12 +68,18 @@ class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
 
         $target = $this->getProperty('target');
         if (empty($target)) {
-            /* Unlink this resource from all resources */
+            /* Move all linked resources to the trash */
             foreach ($linkedResources as $linkedResource) {
-                $diff = array_diff($this->babel->getLinkedResources($linkedResource), [
-                    $this->object->get('context_key') => $this->object->get('id')
-                ]);
-                $this->babel->updateBabelTv($linkedResource, $diff);
+                foreach ($this->babel->getLinkedResources($linkedResource) as $resourceId) {
+                    /** @var modResource $resource */
+                    $resource = $this->modx->getObject('modResource', $resourceId);
+                    if ($resource) {
+                        $resource->set('deleted', true);
+                        $resource->set('deletedon', time());
+                        $resource->set('deletedby', $this->modx->user->id);
+                        $resource->save();
+                    }
+                }
             }
             $this->babel->updateBabelTv($this->object->get('id'), []);
             $this->fireUnlinkEvent();
@@ -93,9 +99,14 @@ class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
             unset($linkedResources[$this->getProperty('context_key')]);
             $this->babel->updateBabelTv($this->object->get('id'), $linkedResources);
             $this->fireUnlinkEvent($targetResource);
+            $targetResource->set('deleted', true);
+            $targetResource->set('deletedon', time());
+            $targetResource->set('deletedby', $this->modx->user->id);
+            $targetResource->save();
         }
-        $this->modx->log(xPDO::LOG_LEVEL_INFO, $this->modx->lexicon('babel.success_unlink_resource', [
+        $this->modx->log(xPDO::LOG_LEVEL_INFO, $this->modx->lexicon('babel.success_delete_resource', [
             'id' => $this->object->get('id'),
+            'oldid' => ($targetResource) ? $targetResource->get('id') : '',
             'context' => $this->getProperty('context_key'),
         ]));
         if ($this->getBooleanProperty('last')) {
@@ -131,4 +142,4 @@ class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
     }
 }
 
-return 'BabelResourceUnlinkProcessor';
+return 'BabelResourceDeleteProcessor';

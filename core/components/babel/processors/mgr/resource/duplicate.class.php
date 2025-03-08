@@ -89,8 +89,9 @@ class BabelResourceDuplicateProcessor extends ObjectUpdateProcessor
         $this->fireDuplicateEvent();
         $this->logManagerAction();
 
-        $this->modx->log(xPDO::LOG_LEVEL_INFO, $this->modx->lexicon('babel.translation_success_create_resource', [
-            'id' => $this->newObject->get('id'),
+        $this->modx->log(xPDO::LOG_LEVEL_INFO, $this->modx->lexicon('babel.success_create_resource', [
+            'id' => $this->object->get('id'),
+            'newid' => $this->newObject->get('id'),
             'context' => $context,
         ]));
         if ($this->getBooleanProperty('last')) {

@@ -2,7 +2,7 @@
 /**
  * Babel
  *
- * Copyright 2010-2024 by Jakob Class <jakob.class@gmail.com>
+ * Copyright 2010-2025 by Jakob Class <jakob.class@gmail.com>
  *
  * This file is part of Babel.
  *
@@ -66,7 +66,7 @@ class Babel
      * The version
      * @var string $version
      */
-    public $version = '3.4.0';
+    public $version = '3.5.0-b1';
 
     /**
      * The class config
