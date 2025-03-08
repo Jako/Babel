@@ -54,3 +54,6 @@ $_lang['babel.unlink_all'] = 'Alle Verlinkungen entfernen';
 $_lang['babel.unlink_all_translations'] = 'Verlinkungen aller Übersetzungen entfernen';
 $_lang['babel.unlink_all_translations_confirm'] = 'Sind Sie sicher, dass Sie die Verlinkungen aller Übersetzungen von dieser Ressource entfernen möchten?';
 $_lang['babel.unlink_translation_confirm'] = 'Sind Sie sicher, dass Sie die Verlinkung der Übersetzung im Kontext <b>"[[+context]]"</b> von dieser Ressource entfernen möchten?';
+$_lang['babel.contexts_desc_delete_all'] = 'Alle verknüpften Ressourcen löschen';
+$_lang['babel.create_child_translations'] = 'Übersetzungen von Kindressourcen erstellen';
+$_lang['babel.contexts_desc_delete'] = 'Ressource löschen';
