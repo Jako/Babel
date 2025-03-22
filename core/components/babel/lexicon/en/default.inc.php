@@ -54,7 +54,9 @@ $_lang['babel.settings'] = '<i class="icon icon-cog"><span class="sr-only">Setti
 $_lang['babel.settings_desc'] = 'Edit the settings of Babel. You can edit the value of a system setting by double-clicking the ‘Value’ table cell or by right-clicking in the table cell.';
 $_lang['babel.success_create_resource'] = 'The translated resource [[+newid]] of resource [[+id]] was created in context [[+context]].';
 $_lang['babel.success_delete_resource'] = 'The translated resource [[+oldid]] of resource [[+id]] was deleted in context [[+context]].';
+$_lang['babel.success_delete_resources'] = 'The translated resources of resource [[+id]] were deleted in all contexts.';
 $_lang['babel.success_unlink_resource'] = 'The translated resource [[+oldid]] of resource [[+id]] was unlinked in context [[+context]].';
+$_lang['babel.success_unlink_resources'] = 'The translated resources of resource [[+id]] were unlinked in all context.';
 $_lang['babel.sync_linked_translations'] = 'Synchronize all translations';
 $_lang['babel.sync_linked_translations_target'] = 'Synchronize all translations from the target';
 $_lang['babel.systemsetting_key_err_nv'] = 'You can only edit settings with the prefix babel.';
