@@ -44,7 +44,7 @@ Babel.grid.ResourceMatrix = function (config) {
             menuDisabled: true,
             fixed: true,
             locked: true,
-            width: 50
+            width: 80
         }];
         Ext.each(config.contexts, function (item) {
             fields.push('linkedres_id_' + item);
@@ -52,7 +52,7 @@ Babel.grid.ResourceMatrix = function (config) {
             contexts.push(item);
             columns.push({
                 header: item,
-                width: 70,
+                width: 80,
                 sortable: false,
                 dataIndex: 'linkedres_id_' + item,
                 id: 'linkedres_id_' + item,
@@ -131,8 +131,11 @@ Ext.extend(Babel.grid.ResourceMatrix, MODx.grid.Grid, {
     linkTranslation: function (ctx, id) {
         Babel.linkTranslation(ctx, id, this);
     },
-    unlinkTranslation: function (ctx, id, target) {
-        return Babel.unlinkTranslation(ctx, id, target, this);
+    unlinkTranslation: function (ctx, id) {
+        return Babel.unlinkTranslation(ctx, id, this);
+    },
+    deleteTranslation: function (ctx, id) {
+        return Babel.deleteTranslation(ctx, id, this);
     },
     createTranslation: function (ctx, id) {
         Babel.createTranslation(ctx, id)
@@ -167,6 +170,10 @@ Ext.extend(Babel.grid.ResourceMatrix, MODx.grid.Grid, {
                 className: 'unlink-all',
                 icon: 'chain-broken',
                 text: _('babel.unlink_all')
+            }, {
+                className: 'delete-all',
+                icon: 'trash',
+                text: _('babel.delete_all')
             }]
         });
     },
@@ -180,13 +187,11 @@ Ext.extend(Babel.grid.ResourceMatrix, MODx.grid.Grid, {
                     icon: 'plus-circle',
                     text: _('babel.create_translation'),
                     ctx: ctx,
-                    target: 0
                 }, {
                     className: 'link',
                     icon: 'link',
                     text: _('babel.link_translation'),
                     ctx: ctx,
-                    target: 0
                 });
             } else {
                 var pagetitle = record.get('linkedres_pagetitle_' + ctx);
@@ -202,7 +207,11 @@ Ext.extend(Babel.grid.ResourceMatrix, MODx.grid.Grid, {
                     icon: 'chain-broken',
                     text: _('babel.unlink') + ': ' + pagetitle + ' (' + target + ')',
                     ctx: ctx,
-                    target: target
+                }, {
+                    className: 'delete',
+                    icon: 'trash-o',
+                    text: _('babel.delete') + ': ' + pagetitle + ' (' + target + ')',
+                    ctx: ctx,
                 });
             }
         }
@@ -217,14 +226,11 @@ Ext.extend(Babel.grid.ResourceMatrix, MODx.grid.Grid, {
             var act = t.className.split(' ')[1];
             var record = this.getSelectionModel().getSelected();
             switch (act) {
-                case 'unlink-all':
-                    this.unlinkTranslation('', record.get('id'), 0)
+                case 'create':
+                    this.createTranslation(t.dataset.ctx, record.get('id'));
                     break;
                 case 'create-multiple':
                     this.createTranslation('', record.get('id'));
-                    break;
-                case 'create':
-                    this.createTranslation(t.dataset.ctx, record.get('id'));
                     break;
                 case 'link':
                     this.linkTranslation(t.dataset.ctx, record.get('id'));
@@ -233,7 +239,16 @@ Ext.extend(Babel.grid.ResourceMatrix, MODx.grid.Grid, {
                     MODx.loadPage('resource/update', 'id=' + t.dataset.target);
                     break;
                 case 'unlink':
-                    this.unlinkTranslation(t.dataset.ctx, record.get('id'), t.dataset.target);
+                    this.unlinkTranslation(t.dataset.ctx, record.get('id'));
+                    break;
+                case 'unlink-all':
+                    this.unlinkTranslation('', record.get('id'), 0);
+                    break;
+                case 'delete':
+                    this.deleteTranslation(t.dataset.ctx, record.get('id'));
+                    break;
+                case 'delete-all':
+                    this.deleteTranslation('', record.get('id'), 0);
                     break;
                 default:
                     break;

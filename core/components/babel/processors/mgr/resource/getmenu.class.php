@@ -20,6 +20,8 @@ class BabelResourceGetMenuProcessor extends ObjectProcessor
      */
     public function process()
     {
+        $deletedCount = $this->modx->getCount($this->classKey, ['deleted' => true]);
+
         /** @var modResource $resource */
         $resource = $this->modx->getObject($this->classKey, $this->getProperty('id'));
         if ($resource) {
@@ -28,6 +30,7 @@ class BabelResourceGetMenuProcessor extends ObjectProcessor
                 $output = [
                     'menu' => $menu,
                     'context_key' => $resource->get('context_key'),
+                    'deletedCount' => $deletedCount,
                 ];
                 return $this->success('', $output);
             }
