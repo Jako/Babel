@@ -76,3 +76,5 @@ $_lang['babel.delete_successful'] = 'De vertaling is succesvol verwijderd.';
 $_lang['babel.contexts_desc_delete'] = 'Bron verwijderen';
 $_lang['babel.delete_translation'] = 'Vertaling verwijderen';
 $_lang['babel.delete_multiple_translations_finished'] = 'De vertaalde bronnen zijn verwijderd.';
+$_lang['babel.success_delete_resources'] = 'De vertaalde bronnen van bron [[+id]] werden verwijderd in alle contexten.';
+$_lang['babel.success_unlink_resources'] = 'De vertaalde bronnen van bron [[+id]] werden in alle contexten ontkoppeld.';
