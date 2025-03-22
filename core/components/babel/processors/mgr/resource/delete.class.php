@@ -17,9 +17,6 @@ class BabelResourceDeleteProcessor extends ObjectUpdateProcessor
     /** @var modResource $object */
     public $object;
 
-    /** @var modResource $targetResource The link target */
-    protected $targetResource;
-
     /**
      * {@inheritDoc}
      * @return boolean
@@ -28,20 +25,8 @@ class BabelResourceDeleteProcessor extends ObjectUpdateProcessor
     {
         $success = parent::initialize();
 
-        $target = $this->getProperty('target', false);
         $contextKey = $this->getProperty('context_key', false);
-        if (empty($target) && !empty($contextKey)) {
-            return $this->modx->lexicon($this->objectType . '_err_ns');
-        }
-        $primaryKey = $this->getProperty($this->primaryKeyField, false);
-        if ($target === $primaryKey) {
-            return $this->modx->lexicon('babel.resource_err_delete_of_selflink_not_possible');
-        }
-
-        if ($target) {
-            if (empty($contextKey)) {
-                return $this->modx->lexicon('babel.context_err_ns');
-            }
+        if (!empty($contextKey)) {
             $context = $this->modx->getObject('modContext', ['key' => $contextKey]);
             if (!$context) {
                 return $this->modx->lexicon('babel.context_err_invalid_key', [
@@ -59,21 +44,20 @@ class BabelResourceDeleteProcessor extends ObjectUpdateProcessor
      */
     public function process()
     {
-        $targetResources = $this->babel->getLinkedResources($this->getProperty('target'));
         $linkedResources = $this->babel->getLinkedResources($this->object->get('id'));
         if (empty($linkedResources)) {
             /* always be sure that the Babel TV is set */
-            $this->babel->initBabelTv($this->object);
+            $linkedResources = $this->babel->initBabelTv($this->object);
         }
 
-        $target = $this->getProperty('target');
-        if (empty($target)) {
+        $contextKey = $this->getProperty('context_key');
+        if (empty($contextKey)) {
             /* Move all linked resources to the trash */
             foreach ($linkedResources as $linkedResource) {
                 foreach ($this->babel->getLinkedResources($linkedResource) as $resourceId) {
                     /** @var modResource $resource */
                     $resource = $this->modx->getObject('modResource', $resourceId);
-                    if ($resource) {
+                    if ($resource && $resource->get('id') !== $this->object->get('id')) {
                         $resource->set('deleted', true);
                         $resource->set('deletedon', time());
                         $resource->set('deletedby', $this->modx->user->id);
@@ -83,7 +67,12 @@ class BabelResourceDeleteProcessor extends ObjectUpdateProcessor
             }
             $this->babel->updateBabelTv($this->object->get('id'), []);
             $this->fireUnlinkEvent();
+
+            $this->modx->log(xPDO::LOG_LEVEL_INFO, $this->modx->lexicon('babel.success_delete_resources', [
+                'id' => $this->object->get('id'),
+            ]));
         } else {
+            $target = $linkedResources[$contextKey];
             /** @var modResource $targetResource */
             $targetResource = $this->modx->getObject('modResource', $target);
             if (!$targetResource) {
@@ -91,8 +80,9 @@ class BabelResourceDeleteProcessor extends ObjectUpdateProcessor
                     'resource' => $target
                 ]));
             }
+            $targetResources = $this->babel->getLinkedResources($target);
             if (empty($targetResources)) {
-                $this->babel->initBabelTv($targetResource);
+                $targetResources = $this->babel->initBabelTv($targetResource);
             }
             unset($targetResources[$this->object->get('context_key')]);
             $this->babel->updateBabelTv($targetResources, $targetResources);
@@ -103,12 +93,13 @@ class BabelResourceDeleteProcessor extends ObjectUpdateProcessor
             $targetResource->set('deletedon', time());
             $targetResource->set('deletedby', $this->modx->user->id);
             $targetResource->save();
+
+            $this->modx->log(xPDO::LOG_LEVEL_INFO, $this->modx->lexicon('babel.success_delete_resource', [
+                'id' => $this->object->get('id'),
+                'oldid' => $targetResource->get('id'),
+                'context' => $this->getProperty('context_key'),
+            ]));
         }
-        $this->modx->log(xPDO::LOG_LEVEL_INFO, $this->modx->lexicon('babel.success_delete_resource', [
-            'id' => $this->object->get('id'),
-            'oldid' => ($targetResource) ? $targetResource->get('id') : '',
-            'context' => $this->getProperty('context_key'),
-        ]));
         if ($this->getBooleanProperty('last')) {
             $this->modx->log(xPDO::LOG_LEVEL_INFO, 'COMPLETED');
         }

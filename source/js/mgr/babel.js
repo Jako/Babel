@@ -29,16 +29,14 @@ Ext.extend(babel, Ext.Component, {
                             }, '-', {
                                 text: '<i class="x-menu-item-icon x-buttonmenu-babel-item-icon icon icon-chain-broken modx' + Babel.config.modxversion + '"></i>' + _('babel.unlink') + ' <b>' + menus[ctx]['resourceTitle'] + ' (' + menus[ctx]['resourceId'] + ')</b>',
                                 contextKey: ctx,
-                                target: menus[ctx]['resourceId'],
                                 handler: function () {
-                                    _this.unlinkTranslation(this.contextKey, 0, this.target);
+                                    _this.unlinkTranslation(this.contextKey, 0);
                                 }
                             }, '-', {
                                 text: '<i class="x-menu-item-icon x-buttonmenu-babel-item-icon icon icon-trash-o modx' + Babel.config.modxversion + '"></i>' + _('babel.delete') + ' <b>' + menus[ctx]['resourceTitle'] + ' (' + menus[ctx]['resourceId'] + ')</b>',
                                 contextKey: ctx,
-                                target: menus[ctx]['resourceId'],
                                 handler: function () {
-                                    _this.deleteTranslation(this.contextKey, 0, this.target);
+                                    _this.deleteTranslation(this.contextKey, 0);
                                 }
                             }]
                         }
@@ -284,18 +282,17 @@ Ext.extend(babel, Ext.Component, {
         });
         window.show();
     },
-    unlinkTranslation: function (ctx, id, target, grid) {
-        this.unlinkDeleteTranslation(ctx, id, target, grid, true);
+    unlinkTranslation: function (ctx, id, grid) {
+        this.unlinkDeleteTranslation(ctx, id, grid, true);
     },
-    deleteTranslation: function (ctx, id, target, grid) {
-        this.unlinkDeleteTranslation(ctx, id, target, grid, false);
+    deleteTranslation: function (ctx, id, grid) {
+        this.unlinkDeleteTranslation(ctx, id, grid, false);
     },
-    unlinkDeleteTranslation: function (ctx, id, target, grid, unlink) {
+    unlinkDeleteTranslation: function (ctx, id, grid, unlink) {
         var _this = this;
         ctx = ctx || '';
-        target = parseInt(target) || 0;
         id = id || MODx.request.id;
-        var message = (target === 0) ?
+        var message = (ctx === '') ?
             ((unlink) ? _('babel.unlink_all_translations_confirm') : _('babel.delete_all_translations_confirm')) :
             ((unlink) ? _('babel.unlink_translation_confirm', {
                 context: ctx,
@@ -333,7 +330,6 @@ Ext.extend(babel, Ext.Component, {
                     window.close();
                     if (values.child === '1') {
                         values.contexts = ctx;
-                        values.target = target;
                         _this.dropTranslations(id, unlink, values)
                     } else {
                         MODx.Ajax.request({
@@ -342,7 +338,6 @@ Ext.extend(babel, Ext.Component, {
                                 action: (unlink) ? 'mgr/resource/unlink' : 'mgr/resource/delete',
                                 context_key: ctx,
                                 id: id,
-                                target: target,
                             },
                             listeners: {
                                 success: {
@@ -351,10 +346,19 @@ Ext.extend(babel, Ext.Component, {
                                             title: _('success'),
                                             message: r.message || ((unlink) ? _('babel.unlink_successful') : _('babel.delete_successful'))
                                         });
+                                        var resourceTree = Ext.getCmp('modx-resource-tree');
                                         if (grid) {
                                             grid.refresh();
+                                            if (resourceTree && resourceTree.rendered) {
+                                                resourceTree.refresh();
+                                            }
                                         } else {
                                             _this.getMenu(r.object.menu);
+                                            if (!unlink) {
+                                                if (resourceTree && resourceTree.rendered) {
+                                                    resourceTree.refresh();
+                                                }
+                                            }
                                         }
                                         _this.hideMask();
                                     },
@@ -628,10 +632,11 @@ Ext.extend(babel, Ext.Component, {
                             delete values.child;
                             this.child_ids = r.object.child_ids;
 
+                            var register = 'mgr';
                             var topic = '/babeladd/';
-                            this.console = MODx.load({
+                            var console = MODx.load({
                                 xtype: 'modx-console',
-                                register: 'mgr',
+                                register: register,
                                 topic: topic,
                                 show_filename: false,
                                 clear: true,
@@ -671,8 +676,8 @@ Ext.extend(babel, Ext.Component, {
                                     }
                                 }
                             });
-                            this.console.show(Ext.getBody());
-                            _this.addTranslation(0, 0, topic, id, values);
+                            console.show(Ext.getBody());
+                            _this.addTranslation(0, 0, register, topic, id, values);
                         }
                     },
                     scope: this
@@ -680,13 +685,13 @@ Ext.extend(babel, Ext.Component, {
             }
         });
     },
-    addTranslation: function (idx, idy, topic, id, values) {
+    addTranslation: function (idx, idy, register, topic, id, values) {
         var _this = this;
         MODx.Ajax.request({
             url: this.config.connectorUrl,
             params: {
                 action: 'mgr/resource/duplicate',
-                register: 'mgr',
+                register: register,
                 topic: topic,
                 id: _this.child_ids[idy],
                 context_key: _this.contexts[idx],
@@ -703,7 +708,7 @@ Ext.extend(babel, Ext.Component, {
                             idy = 0;
                         }
                         if (idx < _this.contexts.length) {
-                            _this.addTranslation(idx, idy, topic, id, values);
+                            _this.addTranslation(idx, idy, register, topic, id, values);
                         }
                     },
                     scope: this
@@ -716,7 +721,7 @@ Ext.extend(babel, Ext.Component, {
                             idy = 0;
                         }
                         if (idx < _this.contexts.length) {
-                            _this.addTranslation(idx, idy, topic, id, values);
+                            _this.addTranslation(idx, idy, register, topic, id, values);
                         }
                     },
                     scope: this
@@ -742,10 +747,11 @@ Ext.extend(babel, Ext.Component, {
                             delete values.child;
                             this.child_ids = r.object.child_ids;
 
+                            var register = 'mgr';
                             var topic = '/babeldrop/';
-                            this.console = MODx.load({
+                            var console = MODx.load({
                                 xtype: 'modx-console',
-                                register: 'mgr',
+                                register: register,
                                 topic: topic,
                                 show_filename: false,
                                 clear: true,
@@ -769,6 +775,18 @@ Ext.extend(babel, Ext.Component, {
                                                             _this.hideMask();
                                                             if (r.object.menu) {
                                                                 _this.getMenu(r.object.menu)
+                                                                var resourceTree = Ext.getCmp('modx-resource-tree');
+                                                                if (resourceTree && resourceTree.rendered) {
+                                                                    var trashButton = resourceTree.getTopToolbar().findById('emptifier');
+                                                                    if (trashButton) {
+                                                                        if (r.object.deletedCount === 0) {
+                                                                            trashButton.disable();
+                                                                        } else {
+                                                                            trashButton.enable();
+                                                                        }
+                                                                        trashButton.setTooltip(_('trash.manage_recycle_bin_tooltip', {count: r.object.deletedCount}));
+                                                                    }
+                                                                }
                                                             }
                                                         },
                                                         scope: this
@@ -785,8 +803,8 @@ Ext.extend(babel, Ext.Component, {
                                     }
                                 }
                             });
-                            this.console.show(Ext.getBody());
-                            _this.dropTranslation(0, 0, topic, id, unlink, values);
+                            console.show(Ext.getBody());
+                            _this.dropTranslation(0, 0, register, topic, id, unlink, values);
                         }
                     },
                     scope: this
@@ -794,17 +812,16 @@ Ext.extend(babel, Ext.Component, {
             }
         });
     },
-    dropTranslation: function (idx, idy, topic, id, unlink, values) {
+    dropTranslation: function (idx, idy, register, topic, id, unlink, values) {
         var _this = this;
         MODx.Ajax.request({
             url: this.config.connectorUrl,
             params: {
                 action: (unlink) ? 'mgr/resource/unlink' : 'mgr/resource/delete',
-                register: 'mgr',
+                register: register,
                 topic: topic,
                 id: _this.child_ids[idy],
                 context_key: _this.contexts[idx],
-                target: values.target,
                 last: (idx === _this.contexts.length - 1) && (idy === _this.child_ids.length - 1)
             },
             listeners: {
@@ -816,7 +833,7 @@ Ext.extend(babel, Ext.Component, {
                             idy = 0;
                         }
                         if (idx < _this.contexts.length) {
-                            _this.dropTranslation(idx, idy, topic, id, unlink, values);
+                            _this.dropTranslation(idx, idy, register, topic, id, unlink, values);
                         }
                     },
                     scope: this
@@ -829,7 +846,7 @@ Ext.extend(babel, Ext.Component, {
                             idy = 0;
                         }
                         if (idx < _this.contexts.length) {
-                            _this.dropTranslation(idx, idy, topic, id, unlink, values);
+                            _this.dropTranslation(idx, idy, register, topic, id, unlink, values);
                         }
                     },
                     scope: this

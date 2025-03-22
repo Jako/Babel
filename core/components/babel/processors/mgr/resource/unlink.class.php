@@ -17,9 +17,6 @@ class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
     /** @var modResource $object */
     public $object;
 
-    /** @var modResource $targetResource The link target */
-    protected $targetResource;
-
     /**
      * {@inheritDoc}
      * @return boolean
@@ -28,20 +25,8 @@ class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
     {
         $success = parent::initialize();
 
-        $target = $this->getProperty('target', false);
         $contextKey = $this->getProperty('context_key', false);
-        if (empty($target) && !empty($contextKey)) {
-            return $this->modx->lexicon($this->objectType . '_err_ns');
-        }
-        $primaryKey = $this->getProperty($this->primaryKeyField, false);
-        if ($target === $primaryKey) {
-            return $this->modx->lexicon('babel.resource_err_unlink_of_selflink_not_possible');
-        }
-
-        if ($target) {
-            if (empty($contextKey)) {
-                return $this->modx->lexicon('babel.context_err_ns');
-            }
+        if (!empty($contextKey)) {
             $context = $this->modx->getObject('modContext', ['key' => $contextKey]);
             if (!$context) {
                 return $this->modx->lexicon('babel.context_err_invalid_key', [
@@ -59,15 +44,14 @@ class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
      */
     public function process()
     {
-        $targetResources = $this->babel->getLinkedResources($this->getProperty('target'));
         $linkedResources = $this->babel->getLinkedResources($this->object->get('id'));
         if (empty($linkedResources)) {
             /* always be sure that the Babel TV is set */
-            $this->babel->initBabelTv($this->object);
+            $linkedResources = $this->babel->initBabelTv($this->object);
         }
 
-        $target = $this->getProperty('target');
-        if (empty($target)) {
+        $contextKey = $this->getProperty('context_key');
+        if (empty($contextKey)) {
             /* Unlink this resource from all resources */
             foreach ($linkedResources as $linkedResource) {
                 $diff = array_diff($this->babel->getLinkedResources($linkedResource), [
@@ -78,6 +62,7 @@ class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
             $this->babel->updateBabelTv($this->object->get('id'), []);
             $this->fireUnlinkEvent();
         } else {
+            $target = $linkedResources[$contextKey];
             /** @var modResource $targetResource */
             $targetResource = $this->modx->getObject('modResource', $target);
             if (!$targetResource) {
@@ -85,8 +70,9 @@ class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
                     'resource' => $target
                 ]));
             }
+            $targetResources = $this->babel->getLinkedResources($target);
             if (empty($targetResources)) {
-                $this->babel->initBabelTv($targetResource);
+                $targetResources = $this->babel->initBabelTv($targetResource);
             }
             unset($targetResources[$this->object->get('context_key')]);
             $this->babel->updateBabelTv($targetResources, $targetResources);

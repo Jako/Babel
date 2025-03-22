@@ -14,7 +14,6 @@ class BabelResourceGetChildrenProcessor extends Processor
 
     protected $search = ['pagetitle'];
 
-
     public function process() {
         $id = intval( $this->getProperty('id'));
         $ids = [$id];
