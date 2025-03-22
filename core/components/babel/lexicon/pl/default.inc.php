@@ -76,3 +76,5 @@ $_lang['babel.delete_successful'] = 'Tłumaczenie zostało pomyślnie usunięte.
 $_lang['babel.delete_multiple_translations_finished'] = 'Przetłumaczone zasoby zostały usunięte.';
 $_lang['babel.unlink_successful'] = 'Tłumaczenie zostało pomyślnie odłączone.';
 $_lang['babel.unlink_translation'] = 'Odłącz tłumaczenie';
+$_lang['babel.success_delete_resources'] = 'Przetłumaczone zasoby zasobu [[+id]] zostały usunięte we wszystkich kontekstach.';
+$_lang['babel.success_unlink_resources'] = 'Przetłumaczone zasoby zasobu [[+id]] zostały odłączone we wszystkich kontekstach.';
