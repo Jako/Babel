@@ -74,3 +74,5 @@ $_lang['babel.delete_all_translations'] = 'Supprimer toutes les traductions';
 $_lang['babel.delete_all'] = 'Supprimer tout';
 $_lang['babel.unlink_successful'] = 'La traduction a été déliée avec succès.';
 $_lang['babel.link_successful'] = 'La ressource a été liée avec succès.';
+$_lang['babel.success_delete_resources'] = 'Les ressources traduites de la ressource [[+id]] ont été supprimées dans tous les contextes.';
+$_lang['babel.success_unlink_resources'] = 'Les ressources traduites de la ressource [[+id]] ont été dissociées dans tous les contextes.';
