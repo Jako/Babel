@@ -76,3 +76,5 @@ $_lang['babel.delete_all_translations_confirm'] = 'Tem a certeza de que pretende
 $_lang['babel.success_delete_resource'] = 'O recurso traduzido [[+oldid]] do recurso [[+id]] foi eliminado no contexto [[+context]].';
 $_lang['babel.resource_err_delete_of_selflink_not_possible'] = 'Uma ligação a um recurso em si não pode ser eliminada.';
 $_lang['babel.success_unlink_resource'] = 'O recurso traduzido [[+oldid]] do recurso [[+id]] foi desvinculado no contexto [[+context]].';
+$_lang['babel.success_unlink_resources'] = 'Os recursos traduzidos do recurso [[+id]] foram desvinculados em todos os contextos.';
+$_lang['babel.success_delete_resources'] = 'Os recursos traduzidos do recurso [[+id]] foram eliminados em todos os contextos.';

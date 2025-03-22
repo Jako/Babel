@@ -76,3 +76,5 @@ $_lang['babel.delete_multiple_translations_finished'] = 'Resursele traduse au fo
 $_lang['babel.resource_err_delete_of_selflink_not_possible'] = 'Un link către o resursă în sine nu poate fi șters.';
 $_lang['babel.success_delete_resource'] = 'Resursa tradusă [[+oldid]] a resursei [[+id]] a fost eliminată în contextul [[+context]].';
 $_lang['babel.success_unlink_resource'] = 'Resursa tradusă [[+oldid]] a resursei [[+id]] a fost dezlegată în contextul [[+context]].';
+$_lang['babel.success_delete_resources'] = 'Resursele traduse ale resursei [[+id]] au fost șterse în toate contextele.';
+$_lang['babel.success_unlink_resources'] = 'Resursele traduse ale resursei [[+id]] au fost dezlegate în toate contextele.';

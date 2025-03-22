@@ -76,3 +76,5 @@ $_lang['babel.delete_successful'] = 'Překlad byl úspěšně smazán.';
 $_lang['babel.success_delete_resource'] = 'Přeložený prostředek [[+oldid]] prostředku [[+id]] byl odstraněn v kontextu [[+kontext]].';
 $_lang['babel.unlink_child_translations'] = 'Zrušení propojení překladů dětských zdrojů';
 $_lang['babel.success_unlink_resource'] = 'Přeložený prostředek [[+oldid]] prostředku [[+id]] byl v kontextu [[+kontext]] odpojen.';
+$_lang['babel.success_delete_resources'] = 'Přeložené prostředky zdroje [[+id]] byly odstraněny ve všech kontextech.';
+$_lang['babel.success_unlink_resources'] = 'Přeložené prostředky zdroje [[+id]] byly ve všech souvislostech odpojeny.';

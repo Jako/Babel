@@ -76,3 +76,5 @@ $_lang['babel.delete_all_translations_confirm'] = 'Tem certeza de que deseja exc
 $_lang['babel.delete_multiple_translations_finished'] = 'Os recursos traduzidos foram excluídos.';
 $_lang['babel.delete_translation'] = 'Excluir tradução';
 $_lang['babel.success_unlink_resource'] = 'O recurso traduzido [[+oldid]] do recurso [[+id]] foi desvinculado no contexto [[+context]].';
+$_lang['babel.success_unlink_resources'] = 'Os recursos traduzidos do recurso [[+id]] foram desvinculados em todos os contextos.';
+$_lang['babel.success_delete_resources'] = 'Os recursos traduzidos do recurso [[+id]] foram excluídos em todos os contextos.';

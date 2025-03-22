@@ -74,3 +74,5 @@ $_lang['babel.delete_translation'] = 'Cancellare la traduzione';
 $_lang['babel.link_successful'] = 'La risorsa è stata collegata con successo.';
 $_lang['babel.resource_err_delete_of_selflink_not_possible'] = 'Un link a una risorsa non può essere cancellato.';
 $_lang['babel.success_unlink_resource'] = 'La risorsa tradotta [[+oldid]] della risorsa [[+id]] è stata scollegata nel contesto [[+contesto]].';
+$_lang['babel.success_delete_resources'] = 'Le risorse tradotte della risorsa [[+id]] sono state eliminate in tutti i contesti.';
+$_lang['babel.success_unlink_resources'] = 'Le risorse tradotte della risorsa [[+id]] sono state scollegate in tutti i contesti.';
