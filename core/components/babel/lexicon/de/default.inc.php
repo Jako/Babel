@@ -74,3 +74,5 @@ $_lang['babel.success_delete_resource'] = 'Die übersetzte Ressource [[+oldid]] 
 $_lang['babel.unlink_child_translations'] = 'Verknüpfung der übersetzten Kinderressourcen lösen';
 $_lang['babel.delete_translation_confirm'] = 'Sind Sie sicher, dass Sie die Übersetzung aus dieser Ressource im Kontext <b>"[[+context]]"</b> löschen wollen?';
 $_lang['babel.unlink_multiple_translations_finished'] = 'Die Verknüpfungen der übersetzten Ressourcen wurde gelöst.';
+$_lang['babel.success_unlink_resources'] = 'Die Verknüpfung der übersetzten Ressourcen der Ressource [[+id]] wurden in allen Kontexten gelöst.';
+$_lang['babel.success_delete_resources'] = 'Die übersetzten Ressourcen der Ressource [[+id]] wurden in allen Kontexten gelöscht.';
