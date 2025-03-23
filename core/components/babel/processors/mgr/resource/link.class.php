@@ -72,25 +72,25 @@ class BabelResourceLinkProcessor extends ObjectUpdateProcessor
         $targetResources = $this->babel->getLinkedResources($target);
         $linkedResources = $this->babel->getLinkedResources($this->object->get('id'));
         if (empty($linkedResources)) {
-            /* always be sure that the Babel TV is set */
+            // Always be sure that the Babel TV is set
             $linkedResources = $this->babel->initBabelTv($this->object);
         }
 
         $context = $this->getProperty('context');
-        /* add or change a translation link */
+        // Add or change a translation link
         if (isset($linkedResources[$context])) {
-            /* If the existing link has been changed, reset the Babel TV of the old resource */
+            // If the existing link has been changed, reset the Babel TV of the old resource
             $this->babel->initBabelTvById($linkedResources[$context]);
         }
         $linkedResources[$context] = $target;
 
         $syncLinkedTranslations = $this->getProperty('sync');
         if ($syncLinkedTranslations == 1) {
-            /* Join all existing linked resources from both resources */
+            // Join all existing linked resources from both resources
             $mergedResources = array_merge($targetResources, $linkedResources);
             $this->babel->updateBabelTv($mergedResources, $mergedResources);
         } else {
-            /* Only join between 2 resources */
+            // Only join between 2 resources
             $mergeLinked = array_merge($linkedResources, [
                 $this->getProperty('context') => $target
             ]);
@@ -103,7 +103,7 @@ class BabelResourceLinkProcessor extends ObjectUpdateProcessor
 
         $copyTvValues = $this->getProperty('copy');
         if ($copyTvValues == 1) {
-            /* copy values of synchronized TVs and resource fields to the target resource */
+            // Copy values of synchronized TVs and resource fields to the target resource
             $this->babel->synchronizeTvs($this->object->get('id'));
             $this->babel->synchronizeFields($this->object->get('id'));
         }

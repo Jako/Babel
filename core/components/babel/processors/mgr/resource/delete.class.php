@@ -46,13 +46,13 @@ class BabelResourceDeleteProcessor extends ObjectUpdateProcessor
     {
         $linkedResources = $this->babel->getLinkedResources($this->object->get('id'));
         if (empty($linkedResources)) {
-            /* always be sure that the Babel TV is set */
+            // Always be sure that the Babel TV is set
             $linkedResources = $this->babel->initBabelTv($this->object);
         }
 
         $contextKey = $this->getProperty('context_key');
         if (empty($contextKey)) {
-            /* Move all linked resources to the trash */
+            // Move all linked resources to the trash
             foreach ($linkedResources as $linkedResource) {
                 foreach ($this->babel->getLinkedResources($linkedResource) as $resourceId) {
                     /** @var modResource $resource */

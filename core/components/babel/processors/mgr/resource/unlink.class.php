@@ -46,13 +46,13 @@ class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
     {
         $linkedResources = $this->babel->getLinkedResources($this->object->get('id'));
         if (empty($linkedResources)) {
-            /* always be sure that the Babel TV is set */
+            // Always be sure that the Babel TV is set
             $linkedResources = $this->babel->initBabelTv($this->object);
         }
 
         $contextKey = $this->getProperty('context_key');
         if (empty($contextKey)) {
-            /* Unlink this resource from all resources */
+            // Unlink this resource from all resources
             foreach ($linkedResources as $linkedResource) {
                 $diff = array_diff($this->babel->getLinkedResources($linkedResource), [
                     $this->object->get('context_key') => $this->object->get('id')
@@ -61,6 +61,9 @@ class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
             }
             $this->babel->updateBabelTv($this->object->get('id'), []);
             $this->fireUnlinkEvent();
+            $this->modx->log(xPDO::LOG_LEVEL_INFO, $this->modx->lexicon('babel.success_unlink_resources', [
+                'id' => $this->object->get('id'),
+            ]));
         } else {
             $target = $linkedResources[$contextKey];
             /** @var modResource $targetResource */
@@ -79,11 +82,11 @@ class BabelResourceUnlinkProcessor extends ObjectUpdateProcessor
             unset($linkedResources[$this->getProperty('context_key')]);
             $this->babel->updateBabelTv($this->object->get('id'), $linkedResources);
             $this->fireUnlinkEvent($targetResource);
+            $this->modx->log(xPDO::LOG_LEVEL_INFO, $this->modx->lexicon('babel.success_unlink_resource', [
+                'id' => $this->object->get('id'),
+                'context' => $this->getProperty('context_key'),
+            ]));
         }
-        $this->modx->log(xPDO::LOG_LEVEL_INFO, $this->modx->lexicon('babel.success_unlink_resource', [
-            'id' => $this->object->get('id'),
-            'context' => $this->getProperty('context_key'),
-        ]));
         if ($this->getBooleanProperty('last')) {
             $this->modx->log(xPDO::LOG_LEVEL_INFO, 'COMPLETED');
         }
