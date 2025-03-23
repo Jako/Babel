@@ -52,7 +52,7 @@ $_lang['babel.select_context'] = 'Sélectionner le contexte';
 $_lang['babel.select_tree_node'] = 'Sélectionner un nœud dans l\'arborescence des ressources';
 $_lang['babel.settings'] = '<i class="icon icon-cog"><span class="sr-only">Paramètres</span></i>';
 $_lang['babel.settings_desc'] = 'Modifier les paramètres de Babel. Vous pouvez modifier la valeur d’un paramètre du système en double-cliquant sur la cellule du tableau ou en cliquant avec le bouton droit de la souris sur la cellule.';
-$_lang['babel.success_create_resource'] = 'Une ressource traduite pour [[+id]] a été créée dans le contexte [[+context]].';
+$_lang['babel.success_duplicate_resource'] = 'Une ressource traduite pour [[+id]] a été créée dans le contexte [[+context]].';
 $_lang['babel.success_delete_resource'] = 'La ressource traduite [[+oldid]] de la ressource [[+id]] a été supprimée dans le contexte [[+contexte]].';
 $_lang['babel.success_delete_resources'] = 'Les ressources traduites de la ressource [[+id]] ont été supprimées dans tous les contextes.';
 $_lang['babel.success_unlink_resource'] = 'La ressource traduite [[+oldid]] de la ressource [[+id]] a été déliée dans le contexte [[+contexte]].';
@@ -63,7 +63,7 @@ $_lang['babel.systemsetting_key_err_nv'] = 'Vous ne pouvez modifier les paramèt
 $_lang['babel.systemsetting_usergroup_err_nv'] = 'Seuls les utilisateurs disposant d\'une autorisation settings ou settings_babel peuvent modifier les paramètres.';
 $_lang['babel.target_id'] = 'ID de la cible';
 $_lang['babel.target_pagetitle'] = '... ou rechercher le titre de la page de la cible';
-$_lang['babel.translation_err_could_not_create_resource'] = 'Une erreur est survenue lors de la création de traduction dans le contexte [[+context]].';
+$_lang['babel.translation_err_could_not_duplicate_resource'] = 'Une erreur est survenue lors de la création de traduction dans le contexte [[+context]].';
 $_lang['babel.translation_pending'] = '[traduction en attente]';
 $_lang['babel.tv_caption'] = 'Liens de traduction de Babel';
 $_lang['babel.tv_description'] = 'Mis à jour par le plugin Babel. Veuillez ne pas modifier !';

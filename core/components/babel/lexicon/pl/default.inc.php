@@ -54,7 +54,7 @@ $_lang['babel.select_context'] = 'Wybierz kontekst';
 $_lang['babel.select_tree_node'] = 'Wybierz węzeł w drzewie zasobów';
 $_lang['babel.settings'] = '<i class="icon icon-cog"><span class="sr-only">Ustawienia</span></i>';
 $_lang['babel.settings_desc'] = 'Edycja ustawień Babel. Wartość ustawienia systemowego można edytować, klikając dwukrotnie komórkę tabeli "Wartość" lub klikając prawym przyciskiem myszy komórkę tabeli.';
-$_lang['babel.success_create_resource'] = 'Przetłumaczony zasób dla [[+id]] został utworzony w kontekście [[+context]].';
+$_lang['babel.success_duplicate_resource'] = 'Przetłumaczony zasób dla [[+id]] został utworzony w kontekście [[+context]].';
 $_lang['babel.success_delete_resource'] = 'Przetłumaczony zasób [[+oldid]] zasobu [[+id]] został usunięty w kontekście [[+context]].';
 $_lang['babel.success_delete_resources'] = 'Przetłumaczone zasoby zasobu [[+id]] zostały usunięte we wszystkich kontekstach.';
 $_lang['babel.success_unlink_resource'] = 'Przetłumaczony zasób [[+oldid]] zasobu [[+id]] został odłączony w kontekście [[+context]].';
@@ -65,7 +65,7 @@ $_lang['babel.systemsetting_key_err_nv'] = 'Edytować można tylko ustawienia z 
 $_lang['babel.systemsetting_usergroup_err_nv'] = 'Tylko użytkownicy z uprawnieniami settings lub settings_babel mogą zmieniać ustawienia.';
 $_lang['babel.target_id'] = 'ID zasobu docelowego';
 $_lang['babel.target_pagetitle'] = 'Tytuł strony docelowej';
-$_lang['babel.translation_err_could_not_create_resource'] = 'Wystąpił błąd podczas próby utworzenia tłumaczenia dla kontekstu [[+context]].';
+$_lang['babel.translation_err_could_not_duplicate_resource'] = 'Wystąpił błąd podczas próby utworzenia tłumaczenia dla kontekstu [[+context]].';
 $_lang['babel.translation_pending'] = '[wymaga przetłumaczenia]';
 $_lang['babel.tv_caption'] = 'Łącza do tłumaczeń Babel';
 $_lang['babel.tv_description'] = 'Zarządzane przez wtyczkę Babel. Proszę nie modyfikować!';

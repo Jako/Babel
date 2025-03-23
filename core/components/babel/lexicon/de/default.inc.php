@@ -52,7 +52,7 @@ $_lang['babel.select_context'] = 'Kontext auswählen';
 $_lang['babel.select_tree_node'] = 'Wählen Sie einen Knoten im Ressourcenbaum';
 $_lang['babel.settings'] = '<i class="icon icon-cog"><span class="sr-only">Einstellungen</span></i>';
 $_lang['babel.settings_desc'] = 'Bearbeiten Sie die Einstellungen von Babel. Sie können den Wert einer Systemeinstellung mit einem Doppelklick auf die ‚Wert‘-Tabellenzelle oder die Systemeinstellung mit einem Rechtsklick in der Tabellenzelle bearbeiten.';
-$_lang['babel.success_create_resource'] = 'Eine übersetzte Ressource für [[+id]] wurde mit [[+newid]] im Kontext [[+context]] erstellt.';
+$_lang['babel.success_duplicate_resource'] = 'Eine übersetzte Ressource für [[+id]] wurde mit [[+newid]] im Kontext [[+context]] erstellt.';
 $_lang['babel.success_delete_resource'] = 'Die übersetzte Ressource [[+oldid]] der Ressource [[+id]] wurde im Kontext [[+context]] gelöscht.';
 $_lang['babel.success_delete_resources'] = 'Die übersetzten Ressourcen der Ressource [[+id]] wurden in allen Kontexten gelöscht.';
 $_lang['babel.success_unlink_resource'] = 'Die Verknüpfung der übersetzten Ressource [[+oldid]] zur Ressource [[+id]] im Kontext [[+context]] wurde gelöst.';
@@ -63,7 +63,7 @@ $_lang['babel.systemsetting_key_err_nv'] = 'Sie können nur Einstellungen mit de
 $_lang['babel.systemsetting_usergroup_err_nv'] = 'Nur Benutzer mit einer settings Berechtigung oder einer settings_babel Berechtigung können die Einstellungen ändern.';
 $_lang['babel.target_id'] = 'Ziel-ID';
 $_lang['babel.target_pagetitle'] = 'Seitentitel des Ziels';
-$_lang['babel.translation_err_could_not_create_resource'] = 'Beim Erstellen der Übersetzung im Kontext [[+context]] ist ein Fehler aufgetreten.';
+$_lang['babel.translation_err_could_not_duplicate_resource'] = 'Beim Erstellen der Übersetzung im Kontext [[+context]] ist ein Fehler aufgetreten.';
 $_lang['babel.translation_pending'] = '[Übersetzung ausstehend]';
 $_lang['babel.tv_caption'] = 'Babel-Übersetzungslinks';
 $_lang['babel.tv_description'] = 'Wird vom Babel-Plugin verwaltet. Bitte nicht ändern!';

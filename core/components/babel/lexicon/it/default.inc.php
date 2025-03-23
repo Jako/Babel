@@ -52,7 +52,7 @@ $_lang['babel.select_context'] = 'Selezionare il contesto';
 $_lang['babel.select_tree_node'] = 'Selezionare un nodo nell\'albero delle risorse';
 $_lang['babel.settings'] = '<i class="icon icon-cog"><span class="sr-only">Impostazioni</span></i>';
 $_lang['babel.settings_desc'] = 'Modifica delle impostazioni di Babel. È possibile modificare il valore di un\'impostazione di sistema facendo doppio clic sulla cella della tabella \'Valore\' o facendo clic con il pulsante destro del mouse sulla cella della tabella.';
-$_lang['babel.success_create_resource'] = 'Una risorsa tradotta per [[+id]] è stata creata nel contesto [[+context]].';
+$_lang['babel.success_duplicate_resource'] = 'Una risorsa tradotta per [[+id]] è stata creata nel contesto [[+context]].';
 $_lang['babel.success_delete_resource'] = 'La risorsa tradotta [[+oldid]] della risorsa [[+id]] è stata cancellata nel contesto [[+contesto]].';
 $_lang['babel.success_delete_resources'] = 'Le risorse tradotte della risorsa [[+id]] sono state eliminate in tutti i contesti.';
 $_lang['babel.success_unlink_resource'] = 'La risorsa tradotta [[+oldid]] della risorsa [[+id]] è stata scollegata nel contesto [[+contesto]].';
@@ -63,7 +63,7 @@ $_lang['babel.systemsetting_key_err_nv'] = 'È possibile modificare solo le impo
 $_lang['babel.systemsetting_usergroup_err_nv'] = 'Solo gli utenti con l\'autorizzazione settings o settings_babel possono modificare le impostazioni.';
 $_lang['babel.target_id'] = 'ID di destinazione';
 $_lang['babel.target_pagetitle'] = 'Titolo della pagina di destinazione';
-$_lang['babel.translation_err_could_not_create_resource'] = 'Si &egrave; verificato un errore durante la creazione della traduzione nel contesto [[+context]].';
+$_lang['babel.translation_err_could_not_duplicate_resource'] = 'Si &egrave; verificato un errore durante la creazione della traduzione nel contesto [[+context]].';
 $_lang['babel.translation_pending'] = '[traduzione in sospeso]';
 $_lang['babel.tv_caption'] = 'Links Traduzioni Babel';
 $_lang['babel.tv_description'] = 'Gestito dal plugin di Babel. Si prega di non cambiarlo!';

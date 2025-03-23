@@ -54,7 +54,7 @@ $_lang['babel.select_context'] = 'Selecteer context';
 $_lang['babel.select_tree_node'] = 'Selecteer een knooppunt in de boomstructuur';
 $_lang['babel.settings'] = '<i class="icon icon-cog"><span class="sr-only">Instellingen</span></i>';
 $_lang['babel.settings_desc'] = 'De instellingen van Babel bewerken. Je kunt de waarde van een systeeminstelling bewerken door te dubbelklikken op de tabelcel \'Waarde\' of door rechts te klikken in de tabelcel.';
-$_lang['babel.success_create_resource'] = 'Er is een vertaalde bron voor [[+id]] gemaakt in context [[+context]].';
+$_lang['babel.success_duplicate_resource'] = 'Er is een vertaalde bron voor [[+id]] gemaakt in context [[+context]].';
 $_lang['babel.success_delete_resource'] = 'De vertaalde bron [[+oldid]] van bron [[+id]] is verwijderd in context [[+context]].';
 $_lang['babel.success_delete_resources'] = 'De vertaalde bronnen van bron [[+id]] werden verwijderd in alle contexten.';
 $_lang['babel.success_unlink_resource'] = 'De vertaalde bron [[+oldid]] van bron [[+id]] was unlinked in context [[+context]].';
@@ -65,7 +65,7 @@ $_lang['babel.systemsetting_key_err_nv'] = 'Je kunt alleen instellingen bewerken
 $_lang['babel.systemsetting_usergroup_err_nv'] = 'Alleen gebruikers met de rechten settings of settings_babel kunnen de instellingen wijzigen.';
 $_lang['babel.target_id'] = 'Doel-ID';
 $_lang['babel.target_pagetitle'] = '... of zoek naar de paginatitel van het doelwit';
-$_lang['babel.translation_err_could_not_create_resource'] = 'Er is een fout opgetreden tijdens het maken van een vertaling in channel [[+context]].';
+$_lang['babel.translation_err_could_not_duplicate_resource'] = 'Er is een fout opgetreden tijdens het maken van een vertaling in channel [[+context]].';
 $_lang['babel.translation_pending'] = '[in afwachting van vertaling]';
 $_lang['babel.tv_caption'] = 'Babel Vertaal Links';
 $_lang['babel.tv_description'] = 'Onderhouden door Babel plugin. Gelieve niet te veranderen!';

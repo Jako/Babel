@@ -54,7 +54,7 @@ $_lang['babel.select_context'] = 'Vyberte kontext';
 $_lang['babel.select_tree_node'] = 'Výběr uzlu ve stromu zdrojů';
 $_lang['babel.settings'] = '<i class="icon icon-cog"><span class="sr-only">Nastavení</span></i>';
 $_lang['babel.settings_desc'] = 'Upravte nastavení aplikace Babel. Hodnotu nastavení systému můžete upravit dvojklikem na buňku tabulky "Hodnota" nebo kliknutím pravým tlačítkem myši do buňky tabulky.';
-$_lang['babel.success_create_resource'] = 'V kontextu [[+context]] byl vytvořen přeložený zdroj pro [[+id]].';
+$_lang['babel.success_duplicate_resource'] = 'V kontextu [[+context]] byl vytvořen přeložený zdroj pro [[+id]].';
 $_lang['babel.success_delete_resource'] = 'Přeložený prostředek [[+oldid]] prostředku [[+id]] byl odstraněn v kontextu [[+kontext]].';
 $_lang['babel.success_delete_resources'] = 'Přeložené prostředky zdroje [[+id]] byly odstraněny ve všech kontextech.';
 $_lang['babel.success_unlink_resource'] = 'Přeložený prostředek [[+oldid]] prostředku [[+id]] byl v kontextu [[+kontext]] odpojen.';
@@ -65,7 +65,7 @@ $_lang['babel.systemsetting_key_err_nv'] = 'Nastavení lze upravovat pouze s př
 $_lang['babel.systemsetting_usergroup_err_nv'] = 'Nastavení mohou měnit pouze uživatelé s oprávněním settings nebo settings_babel.';
 $_lang['babel.target_id'] = 'ID cíle';
 $_lang['babel.target_pagetitle'] = '... nebo vyhledat název stránky cíle';
-$_lang['babel.translation_err_could_not_create_resource'] = 'Nastala chyba při vytváření překladu v kontextu [[+context]].';
+$_lang['babel.translation_err_could_not_duplicate_resource'] = 'Nastala chyba při vytváření překladu v kontextu [[+context]].';
 $_lang['babel.translation_pending'] = '[čeká se na překlad]';
 $_lang['babel.tv_caption'] = 'Překladové odkazy Babel Translation';
 $_lang['babel.tv_description'] = 'Spravováno pluginem Babel. Prosím neměnit!';

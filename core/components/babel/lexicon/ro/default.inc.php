@@ -54,7 +54,7 @@ $_lang['babel.select_context'] = 'Selectați contextul';
 $_lang['babel.select_tree_node'] = 'Selectați un nod din arborele de resurse';
 $_lang['babel.settings'] = '<i class="icon icon-cog"><span class="sr-only">Setări</span></i>';
 $_lang['babel.settings_desc'] = 'Modificați setările din Babel. Puteți edita valoarea unei setări de sistem făcând dublu clic pe celula de tabel "Value" (Valoare) sau făcând clic dreapta în celula de tabel.';
-$_lang['babel.success_create_resource'] = 'O resursă tradusă pentru [[+id]] a fost creată în contextul [[+context]].';
+$_lang['babel.success_duplicate_resource'] = 'O resursă tradusă pentru [[+id]] a fost creată în contextul [[+context]].';
 $_lang['babel.success_delete_resource'] = 'Resursa tradusă [[+oldid]] a resursei [[+id]] a fost eliminată în contextul [[+context]].';
 $_lang['babel.success_delete_resources'] = 'Resursele traduse ale resursei [[+id]] au fost șterse în toate contextele.';
 $_lang['babel.success_unlink_resource'] = 'Resursa tradusă [[+oldid]] a resursei [[+id]] a fost dezlegată în contextul [[+context]].';
@@ -65,7 +65,7 @@ $_lang['babel.systemsetting_key_err_nv'] = 'Puteți edita numai setările cu pre
 $_lang['babel.systemsetting_usergroup_err_nv'] = 'Numai utilizatorii care au permisiunea settings sau settings_babel pot modifica setările.';
 $_lang['babel.target_id'] = 'IDul paginii țintă';
 $_lang['babel.target_pagetitle'] = '... sau căutați titlul paginii țintă';
-$_lang['babel.translation_err_could_not_create_resource'] = 'Eroare la crearea documentului de tradus în contextul [[+context]].';
+$_lang['babel.translation_err_could_not_duplicate_resource'] = 'Eroare la crearea documentului de tradus în contextul [[+context]].';
 $_lang['babel.translation_pending'] = '[traducere în curs]';
 $_lang['babel.tv_caption'] = 'Babel - legăturile către resursele traduse';
 $_lang['babel.tv_description'] = 'Menținut de pluginul Babel. Vă rugăm nu modificați!';
