@@ -181,38 +181,40 @@ Ext.extend(Babel.grid.ResourceMatrix, MODx.grid.Grid, {
         var actionButtons = [];
         if (metaData.id !== 'linkedres_id_' + record.get('context_key')) {
             var ctx = metaData.id.substr('linkedres_id_'.length);
-            if (record.get(metaData.id) === '') {
-                actionButtons.push({
-                    className: 'create',
-                    icon: 'plus-circle',
-                    text: _('babel.create_translation'),
-                    ctx: ctx,
-                }, {
-                    className: 'link',
-                    icon: 'link',
-                    text: _('babel.link_translation'),
-                    ctx: ctx,
-                });
-            } else {
-                var pagetitle = record.get('linkedres_pagetitle_' + ctx);
-                var target = record.get('linkedres_id_' + ctx);
-                actionButtons.push({
-                    className: 'update',
-                    icon: 'pencil-square-o',
-                    text: _('edit') + ': ' + pagetitle + ' (' + target + ')',
-                    ctx: ctx,
-                    target: target
-                }, {
-                    className: 'unlink',
-                    icon: 'chain-broken',
-                    text: _('babel.unlink') + ': ' + pagetitle + ' (' + target + ')',
-                    ctx: ctx,
-                }, {
-                    className: 'delete',
-                    icon: 'trash-o',
-                    text: _('babel.delete') + ': ' + pagetitle + ' (' + target + ')',
-                    ctx: ctx,
-                });
+            var target = record.get('linkedres_id_' + ctx);
+            if (target !== 'x') {
+                if (record.get(metaData.id) === '') {
+                    actionButtons.push({
+                        className: 'create',
+                        icon: 'plus-circle',
+                        text: _('babel.create_translation'),
+                        ctx: ctx,
+                    }, {
+                        className: 'link',
+                        icon: 'link',
+                        text: _('babel.link_translation'),
+                        ctx: ctx,
+                    });
+                } else {
+                    var pagetitle = record.get('linkedres_pagetitle_' + ctx);
+                    actionButtons.push({
+                        className: 'update',
+                        icon: 'pencil-square-o',
+                        text: _('edit') + ': ' + pagetitle + ' (' + target + ')',
+                        ctx: ctx,
+                        target: target
+                    }, {
+                        className: 'unlink',
+                        icon: 'chain-broken',
+                        text: _('babel.unlink') + ': ' + pagetitle + ' (' + target + ')',
+                        ctx: ctx,
+                    }, {
+                        className: 'delete',
+                        icon: 'trash-o',
+                        text: _('babel.delete') + ': ' + pagetitle + ' (' + target + ')',
+                        ctx: ctx,
+                    });
+                }
             }
         }
         return this.buttonColumnTpl.apply({

@@ -92,7 +92,13 @@ class Babel
      * An associative array which maps context keys to the context groups.
      * @var array $contextKeyToGroup
      */
-    protected $contextKeyToGroup = [];
+    public $contextKeyToGroup = [];
+
+    /**
+     * The synchronized context settings
+     * @var array $cacheOptions
+     */
+    public $syncedContextSettings = ['babel.syncFields', 'babel.syncTvs'];
 
     /**
      * The class cache options
@@ -242,7 +248,7 @@ class Babel
     public function getExplodeSeparatedOption(string $key, array $config = [], $default = null): array
     {
         $option = $this->getOption($key, $config, $default);
-        return ($option !== '') ? array_map('trim', explode(',', rtrim($option, " ,\t\n\r\0\x0B"))) : [];
+        return $this->getExplodedValue($option);
     }
 
     /**
@@ -270,6 +276,15 @@ class Babel
             $access[$p] = $this->modx->hasPermission($p);
         }
         return $access;
+    }
+
+    /**
+     * @param $value
+     * @return array
+     */
+    private function getExplodedValue($value): array
+    {
+        return ($value !== '') ? array_map('trim', explode(',', rtrim($value, " ,\t\n\r\0\x0B"))) : [];
     }
 
     /**
@@ -314,24 +329,31 @@ class Babel
      */
     public function synchronizeFields($resourceId, $targetId = 0)
     {
+        /** @var modResource $resource */
+        $resource = $this->modx->getObject('modResource', $resourceId);
+        if (!$resource) {
+            return;
+        }
+
         // Synchronize the resource fields of linked resources
-        $syncFields = $this->getOption('syncFields');
+        $contextSyncSetting = $this->getContextSetting($resource->get('context_key'), 'babel.syncFields');
+        $syncFields = (!is_null($contextSyncSetting)) ? $this->getExplodedValue($contextSyncSetting) : $this->getOption('syncFields');
         if (empty($syncFields) || !is_array($syncFields)) {
             // There are no resource fields to synchronize
             return;
         }
 
-        /** @var modResource $resource */
-        $resource = $this->modx->getObject('modResource', $resourceId);
         if ($targetId) {
             /** @var modResource $linkedResource */
             $linkedResource = $this->modx->getObject('modResource', $targetId);
-            $fieldChanges = [$this->changeFields($syncFields, $resource, $linkedResource, $resourceId, $targetId)];
+            $fieldChanges = [$this->changeFields($syncFields, $resource, $linkedResource)];
         } else {
             $fieldChanges = [];
-            /** @var modResource $linkedResources */
-            $linkedResources = $this->getLinkedResources($resourceId);
-            foreach ($linkedResources as $linkedResourceId) {
+            $linkedResourceIds = $this->getLinkedResources($resourceId);
+            if (empty($linkedResourceIds)) {
+                $linkedResourceIds = $this->initBabelTvById($resourceId);
+            }
+            foreach ($linkedResourceIds as $linkedResourceId) {
                 // Go through each linked resource
                 if ($resourceId == $linkedResourceId) {
                     // Don't synchronize resource with itself
@@ -339,7 +361,7 @@ class Babel
                 }
                 /** @var modResource $linkedResource */
                 $linkedResource = $this->modx->getObject('modResource', $linkedResourceId);
-                $fieldChanges = array_merge($fieldChanges, $this->changeFields($syncFields, $resource, $linkedResource, $resourceId, $linkedResourceId));
+                $fieldChanges = array_merge($fieldChanges, $this->changeFields($syncFields, $resource, $linkedResource));
             }
         }
 
@@ -362,47 +384,39 @@ class Babel
      */
     public function synchronizeTvs($resourceId, $targetId = 0)
     {
-        $linkedResources = $this->getLinkedResources($resourceId);
-        // Check if Babel TV has been initiated for the specified resource
-        if (empty($linkedResources)) {
-            $linkedResources = $this->initBabelTvById($resourceId);
+        /** @var modResource $resource */
+        $resource = $this->modx->getObject('modResource', $resourceId);
+        if (!$resource) {
+            return;
         }
 
         // Synchronize the TVs of linked resources
-        $syncTvs = $this->getOption('syncTvs');
+        $contextSyncSetting = $this->getContextSetting($resource->get('context_key'), 'babel.syncTvs');
+        $syncTvs = (!is_null($contextSyncSetting)) ? $this->getExplodedValue($contextSyncSetting) : $this->getOption('syncTvs');
         if (empty($syncTvs) || !is_array($syncTvs)) {
             // There are no TVs to synchronize
             return;
         }
 
-        $tvChanges = [];
-        foreach ($syncTvs as $tvId) {
-            // Go through each TV which should be synchronized
-            /** @var modTemplateVar $tv */
-            $tv = $this->modx->getObject('modTemplateVar', $tvId);
-            if (!$tv) {
-                continue;
+        if ($targetId) {
+            $tvChanges = [$this->changeTVs($syncTvs, $resource, $targetId)];
+        } else {
+            $tvChanges = [];
+            $linkedResourceIds = $this->getLinkedResources($resourceId);
+            // Check if Babel TV has been initiated for the specified resource
+            if (empty($linkedResourceIds)) {
+                $linkedResourceIds = $this->initBabelTvById($resourceId);
             }
-            $tvValue = $tv->getValue($resourceId);
-            foreach ($linkedResources as $linkedResourceId) {
+            foreach ($linkedResourceIds as $linkedResourceId) {
                 // Go through each linked resource
                 if ($resourceId == $linkedResourceId) {
                     // Don't synchronize resource with itself
                     continue;
                 }
-                $tvValueLinkedResource = $tv->getValue($linkedResourceId);
-                if ($tvValueLinkedResource !== $tvValue) {
-                    // Update only changed TVs
-                    $tv->setValue($linkedResourceId, $tvValue);
-                    // Collect the changes
-                    $tvChanges[] = [
-                        'tvId' => $tvId,
-                        'tvValue' => $tvValue,
-                        'linkedId' => $linkedResourceId
-                    ];
-                }
+                /** @var modResource $linkedResource */
+                $linkedResource = $this->modx->getObject('modResource', $linkedResourceId);
+                $tvChanges = array_merge($tvChanges, $this->changeTVs($syncTvs, $resource, $linkedResource));
             }
-            $tv->save();
         }
 
         // If tv changes are collected trigger the OnBabelTVSynced event
@@ -754,11 +768,11 @@ class Babel
     public function getContextKey($cultureKey)
     {
         // Search for Context Setting
-        $ctxSetting = $this->modx->getObject("modContextSetting", [
+        $contextSetting = $this->modx->getObject("modContextSetting", [
             "key" => "cultureKey",
             "value" => $cultureKey
         ]);
-        return (($ctxSetting) ? $ctxSetting->get("context_key") : false);
+        return ($contextSetting) ? $contextSetting->get("context_key") : false;
     }
 
     /**
@@ -849,28 +863,72 @@ class Babel
      * @param array $syncFields
      * @param modResource $resource
      * @param modResource $linkedResource
-     * @param int $resourceId
-     * @param int $linkedId
      * @return array
      */
-    private function changeFields(array $syncFields, $resource, $linkedResource, $resourceId, $linkedId)
+    private function changeFields(array $syncFields, $resource, $linkedResource)
     {
         $fieldChanges = [];
-        foreach ($syncFields as $fieldname) {
-            $resourceValue = $resource->get($fieldname);
-            $fieldValueLinkedResource = $linkedResource->get($fieldname);
-            if ($fieldValueLinkedResource !== $resourceValue) {
+        foreach ($syncFields as $syncField) {
+            $resourceValue = $resource->get($syncField);
+            $linkedResourceValue = $linkedResource->get($syncField);
+            if ($linkedResourceValue !== $resourceValue) {
                 // Update only changed resource fields
-                $linkedResource->set($fieldname, $resourceValue);
+                $linkedResource->set($syncField, $resourceValue);
                 // Collect the changes
                 $fieldChanges[] = [
-                    'resourceId' => $resourceId,
+                    'resourceId' => $resource->get('id'),
                     'resourceValue' => $resourceValue,
-                    'linkedId' => $linkedId
+                    'linkedId' => $linkedResource->get('id')
                 ];
             }
         }
         $linkedResource->save();
         return $fieldChanges;
+    }
+
+    /**
+     * @param array $syncTvs
+     * @param modResource $resource
+     * @param modResource $linkedResource
+     * @return array
+     */
+    private function changeTVs($syncTvs, int $resource, $linkedResource)
+    {
+        $tvChanges = [];
+        foreach ($syncTvs as $tvId) {
+            // Go through each TV which should be synchronized
+            /** @var modTemplateVar $tv */
+            $tv = $this->modx->getObject('modTemplateVar', $tvId);
+            if ($tv) {
+                $tvValue = $tv->getValue($resource->get('id'));
+                $tvValueLinkedResource = $tv->getValue($linkedResource->get('id'));
+                if ($tvValueLinkedResource !== $tvValue) {
+                    // Update only changed TVs
+                    $tv->setValue($linkedResource->get('id'), $tvValue);
+                    // Collect the changes
+                    $tvChanges = [
+                        'tvId' => $tvId,
+                        'tvValue' => $tvValue,
+                        'linkedId' => $linkedResource->get('id')
+                    ];
+                }
+                $tv->save();
+            }
+        }
+        return $tvChanges;
+    }
+
+    /**
+     * @param string $contextKey
+     * @param string $settingKey
+     * @return null
+     */
+    private function getContextSetting($contextKey, $settingKey)
+    {
+        $contextSetting = $this->modx->getObject('modContextSetting', [
+            'context_key' => $contextKey,
+            'key' => $settingKey,
+        ]);
+        return ($contextSetting) ? $contextSetting->get('value') : null;
     }
 }

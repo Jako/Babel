@@ -22,7 +22,10 @@ for the page title or by entering the target ID directly.
 If you enable 'Copy synchronized TVs to target', the synced template variables
 (TVs) referenced in the system setting `babel.syncTvs` and the synced resource
 fields referenced in the system setting `babel.syncFields` of all linked
-resources are filled with the TV/field values of the current resource.
+resources are filled with the TV/field values of the current resource. The
+system settings `babel.syncTvs` and `babel.syncFields` can be optionally be set
+with according context settings. These context settings are synced in each
+context group.
 
 If you enable 'Synchronise all translations from the target', the language links
 of the target resource are synced between the linked resources. The current
