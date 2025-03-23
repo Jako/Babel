@@ -81,3 +81,5 @@ $_lang['babel.update_multiple_translations_err_no_contexts'] = 'Keine zusätzlic
 $_lang['babel.update_multiple_translations_finished'] = 'Die übersetzten Ressourcen wurden aktualisiert.';
 $_lang['babel.update_translation'] = 'Übersetzung aktualisieren';
 $_lang['babel.update_translation_confirm'] = 'Sind Sie sicher, dass Sie die Übersetzung für diese Ressource im Kontext <b>"[[+context]]"</b> aktualisieren möchten?';
+$_lang['babel.translation_err_could_not_sync_resource'] = 'Beim Versuch, eine Übersetzung im Kontext [[+Kontext]] zu synchronisieren, ist ein Fehler aufgetreten.';
+$_lang['babel.success_sync_resource'] = 'Die übersetzte Ressource [[+newid]] der Ressource [[+id]] wurde im Kontext [[+context]] synchronisiert.';
