@@ -7,7 +7,8 @@
 namespace mikrobi\Babel\Plugins\Events;
 
 use mikrobi\Babel\Plugins\Plugin;
-use MODX\Revolution\modContext;
+use modContext;
+use modContextSetting;
 
 class OnContextSave extends Plugin
 {
@@ -60,6 +61,7 @@ class OnContextSave extends Plugin
                     'key' => $syncedSettingKey,
                 ]);
                 if (!$contextSetting) {
+                    /** @var modContextSetting $contextSetting */
                     $contextSetting = $this->modx->newObject('modContextSetting');
                     $contextSetting->fromArray([
                         'context_key' => $contextKey,
