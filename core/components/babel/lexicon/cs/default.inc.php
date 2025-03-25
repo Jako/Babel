@@ -85,3 +85,4 @@ $_lang['babel.update_multiple_translations_err_no_contexts'] = 'Pro aktualizaci 
 $_lang['babel.update_multiple_translations_finished'] = 'Přeložené zdroje byly aktualizovány.';
 $_lang['babel.update_translation'] = 'Aktualizace překladu';
 $_lang['babel.update_translation_confirm'] = 'Jste si jisti, že chcete aktualizovat překlad tohoto zdroje v kontextu <b>"[[+kontext]]"</b>?';
+$_lang['babel.refresh_cache'] = 'Vymazání mezipaměti [[+jméno balíčku]]';
