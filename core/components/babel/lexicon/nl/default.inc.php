@@ -85,3 +85,4 @@ $_lang['babel.update_multiple_translations_err_no_contexts'] = 'Geen extra conte
 $_lang['babel.update_multiple_translations_finished'] = 'De vertaalde bronnen zijn bijgewerkt.';
 $_lang['babel.update_translation'] = 'Vertaling bijwerken';
 $_lang['babel.update_translation_confirm'] = 'Weet je zeker dat je de vertaling voor deze bron wilt bijwerken in de <b>"[[+context]]"</b> context?';
+$_lang['babel.refresh_cache'] = 'De cache van [[+packagename]] wissen';
