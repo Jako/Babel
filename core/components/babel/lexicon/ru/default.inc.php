@@ -85,3 +85,4 @@ $_lang['babel.update_multiple_translations_err_no_contexts'] = 'Дополнит
 $_lang['babel.update_multiple_translations_finished'] = 'Переведенные ресурсы были обновлены.';
 $_lang['babel.update_translation'] = 'Обновление перевода';
 $_lang['babel.update_translation_confirm'] = 'Вы уверены, что хотите обновить перевод для этого ресурса в контексте <b>"[[+context]]"</b>?';
+$_lang['babel.refresh_cache'] = 'Очистка кэша [[+packagename]]';
