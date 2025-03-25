@@ -510,12 +510,12 @@ class Babel
     }
 
     /**
-     * Refresh the linked resource with the values of the specified resource.
+     * Reset the linked resource with the values of the specified resource.
      *
      * @param modResource $resource
      * @param modResource $linkedResource
      */
-    public function refreshResource($resource, $linkedResource)
+    public function resetResource($resource, $linkedResource)
     {
         $resourceArray = $resource->toArray('', true);
         unset($resourceArray['id'], $resourceArray['parent'], $resourceArray['createdby'], $resourceArray['createdon'], $resourceArray['editedby'], $resourceArray['editedon'], $resourceArray['deleted'], $resourceArray['deletedon'], $resourceArray['deletedby'], $resourceArray['published'], $resourceArray['publishedon'], $resourceArray['publishedby'], $resourceArray['context_key']);

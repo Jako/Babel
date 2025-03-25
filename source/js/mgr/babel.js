@@ -27,10 +27,10 @@ Ext.extend(babel, Ext.Component, {
                                     MODx.loadPage('resource/update', 'id=' + this.resourceId);
                                 }
                             }, '-', {
-                                text: '<i class="x-menu-item-icon x-buttonmenu-babel-item-icon icon icon-repeat modx' + Babel.config.modxversion + '"></i>' + _('babel.update') + ' <b>' + menus[ctx]['resourceTitle'] + ' (' + menus[ctx]['resourceId'] + ')</b>',
+                                text: '<i class="x-menu-item-icon x-buttonmenu-babel-item-icon icon icon-refresh modx' + Babel.config.modxversion + '"></i>' + _('babel.refresh') + ' <b>' + menus[ctx]['resourceTitle'] + ' (' + menus[ctx]['resourceId'] + ')</b>',
                                 contextKey: ctx,
                                 handler: function () {
-                                    _this.updateTranslation(this.contextKey, 0);
+                                    _this.refreshTranslation(this.contextKey, 0);
                                 }
                             }, '-', {
                                 text: '<i class="x-menu-item-icon x-buttonmenu-babel-item-icon icon icon-chain-broken modx' + Babel.config.modxversion + '"></i>' + _('babel.unlink') + ' <b>' + menus[ctx]['resourceTitle'] + ' (' + menus[ctx]['resourceId'] + ')</b>',
@@ -74,9 +74,9 @@ Ext.extend(babel, Ext.Component, {
             if (i > 0) {
                 menu.push('-');
                 menu.push({
-                    text: '<i class="x-menu-item-icon x-buttonmenu-babel-item-icon icon icon-repeat modx' + Babel.config.modxversion + '"></i>' + _('babel.update_multiple_translations'),
+                    text: '<i class="x-menu-item-icon x-buttonmenu-babel-item-icon icon icon-refresh modx' + Babel.config.modxversion + '"></i>' + _('babel.refresh_multiple_translations'),
                     handler: function () {
-                        _this.updateTranslation();
+                        _this.refreshTranslation();
                     }
                 });
                 menu.push('-');
@@ -317,7 +317,7 @@ Ext.extend(babel, Ext.Component, {
             }));
         var window = MODx.load({
             xtype: 'modx-window',
-            title: (unlink) ? _('babel.unlink_translation') : _('babel.delete_translation'),
+            title: (ctx === '') ? ((unlink) ? _('babel.unlink_all_translations') : _('babel.delete_all_translations')) : ((unlink) ? _('babel.unlink_translation') : _('babel.delete_translation')),
             closeAction: 'close',
             fields: [{
                 style: 'padding-top: 15px',
@@ -868,18 +868,18 @@ Ext.extend(babel, Ext.Component, {
             }
         });
     },
-    updateTranslation: function (ctx, id = 0) {
+    refreshTranslation: function (ctx, id = 0) {
         var _this = this;
         id = id || MODx.request.id;
         this.loadMask();
         if (ctx) {
             var window = MODx.load({
                 xtype: 'modx-window',
-                title: _('babel.update_translation'),
+                title: _('babel.refresh_translation'),
                 closeAction: 'close',
                 fields: [{
                     style: 'padding-top: 15px',
-                    html: '<p>' + _('babel.update_translation_confirm', {context: ctx, id: id}) + '</p>'
+                    html: '<p>' + _('babel.refresh_translation_confirm', {context: ctx, id: id}) + '</p>'
                 }, {
                     xtype: 'xcheckbox',
                     hideLabel: true,
@@ -894,7 +894,7 @@ Ext.extend(babel, Ext.Component, {
                 }, {
                     xtype: 'xcheckbox',
                     hideLabel: true,
-                    boxLabel: _('babel.update_child_translations'),
+                    boxLabel: _('babel.refresh_child_translations'),
                     name: 'child',
                     checked: false
                 }],
@@ -913,7 +913,7 @@ Ext.extend(babel, Ext.Component, {
                         window.close();
                         if (values.child === '1') {
                             values.contexts = ctx;
-                            _this.refreshTranslations(id, values)
+                            _this.resetTranslations(id, values)
                         } else {
                             MODx.Ajax.request({
                                 url: this.config.connectorUrl,
@@ -954,7 +954,7 @@ Ext.extend(babel, Ext.Component, {
             if (Babel.config.hasOwnProperty('menu') && Babel.config.hasOwnProperty('context_key')) {
                 _this.babelMenu = Babel.config.menu;
                 _this.babelContext = Babel.config.context_key;
-                _this.updateTranslations(ctx, id);
+                _this.refreshTranslations(ctx, id);
             } else {
                 MODx.Ajax.request({
                     url: _this.config.connectorUrl,
@@ -968,7 +968,7 @@ Ext.extend(babel, Ext.Component, {
                                 if (r.object.menu && r.object.context_key) {
                                     _this.babelMenu = r.object.menu;
                                     _this.babelContext = r.object.context_key;
-                                    _this.updateTranslations(ctx, id);
+                                    _this.refreshTranslations(ctx, id);
                                 }
                             },
                             scope: this
@@ -978,7 +978,7 @@ Ext.extend(babel, Ext.Component, {
             }
         }
     },
-    updateTranslations: function (ctx, id) {
+    refreshTranslations: function (ctx, id) {
         var _this = this;
         var checkboxes = [];
         Ext.each(Babel.config.contexts, function (ctx) {
@@ -998,7 +998,7 @@ Ext.extend(babel, Ext.Component, {
         if (checkboxes.length) {
             var window = MODx.load({
                 xtype: 'modx-window',
-                title: _('babel.update_multiple_translations'),
+                title: _('babel.refresh_multiple_translations'),
                 closeAction: 'close',
                 fields: [{
                     xtype: 'fieldset',
@@ -1052,7 +1052,7 @@ Ext.extend(babel, Ext.Component, {
                 }, {
                     xtype: 'xcheckbox',
                     hideLabel: true,
-                    boxLabel: _('babel.update_child_translations'),
+                    boxLabel: _('babel.refresh_child_translations'),
                     name: 'child',
                     checked: false
                 }],
@@ -1069,7 +1069,7 @@ Ext.extend(babel, Ext.Component, {
                         var form = window.fp.getForm();
                         var values = form.getValues();
                         window.close();
-                        _this.refreshTranslations(id, values);
+                        _this.resetTranslations(id, values);
                     },
                     scope: this,
                 }],
@@ -1092,11 +1092,11 @@ Ext.extend(babel, Ext.Component, {
             });
             window.show();
         } else {
-            MODx.msg.alert('', _('babel.update_multiple_translations_err_no_contexts'));
+            MODx.msg.alert('', _('babel.refresh_multiple_translations_err_no_contexts'));
             _this.hideMask();
         }
     },
-    refreshTranslations: function (id, values) {
+    resetTranslations: function (id, values) {
         var _this = this;
         _this.contexts = (values.hasOwnProperty('contexts')) ? (Array.isArray(values.contexts) ? values.contexts : [values.contexts]) : [];
         delete values.contexts;
@@ -1128,7 +1128,7 @@ Ext.extend(babel, Ext.Component, {
                                             var requestId = MODx.request.id;
                                             MODx.msg.status({
                                                 title: _('success'),
-                                                message: _('babel.update_multiple_translations_finished')
+                                                message: _('babel.refresh_multiple_translations_finished')
                                             });
                                             MODx.Ajax.request({
                                                 url: _this.config.connectorUrl,
@@ -1159,7 +1159,7 @@ Ext.extend(babel, Ext.Component, {
                                 }
                             });
                             console.show(Ext.getBody());
-                            _this.refreshTranslation(0, 0, register, topic, id, values);
+                            _this.resetTranslation(0, 0, register, topic, id, values);
                         }
                     },
                     scope: this
@@ -1167,7 +1167,7 @@ Ext.extend(babel, Ext.Component, {
             }
         });
     },
-    refreshTranslation: function (idx, idy, register, topic, id, values) {
+    resetTranslation: function (idx, idy, register, topic, id, values) {
         var _this = this;
         MODx.Ajax.request({
             url: this.config.connectorUrl,
@@ -1190,7 +1190,7 @@ Ext.extend(babel, Ext.Component, {
                             idy = 0;
                         }
                         if (idx < _this.contexts.length) {
-                            _this.refreshTranslation(idx, idy, register, topic, id, values);
+                            _this.resetTranslation(idx, idy, register, topic, id, values);
                         }
                     },
                     scope: this
@@ -1203,7 +1203,7 @@ Ext.extend(babel, Ext.Component, {
                             idy = 0;
                         }
                         if (idx < _this.contexts.length) {
-                            _this.refreshTranslation(idx, idy, register, topic, id, values);
+                            _this.resetTranslation(idx, idy, register, topic, id, values);
                         }
                     },
                     scope: this

@@ -140,6 +140,9 @@ Ext.extend(Babel.grid.ResourceMatrix, MODx.grid.Grid, {
     createTranslation: function (ctx, id) {
         Babel.createTranslation(ctx, id)
     },
+    refreshTranslation: function (ctx, id) {
+        Babel.refreshTranslation(ctx, id)
+    },
     clearFilter: function () {
         var store = this.getStore();
         store.baseParams.context = '';
@@ -165,6 +168,10 @@ Ext.extend(Babel.grid.ResourceMatrix, MODx.grid.Grid, {
             action_buttons: [{
                 className: 'create-multiple',
                 icon: 'plus-square',
+                text: _('babel.create_multiple_translations')
+            }, {
+                className: 'refresh-multiple',
+                icon: 'refresh',
                 text: _('babel.create_multiple_translations')
             }, {
                 className: 'unlink-all',
@@ -204,6 +211,12 @@ Ext.extend(Babel.grid.ResourceMatrix, MODx.grid.Grid, {
                         ctx: ctx,
                         target: target
                     }, {
+                        className: 'refresh',
+                        icon: 'refresh',
+                        text: _('babel.refresh') + ': ' + pagetitle + ' (' + target + ')',
+                        ctx: ctx,
+                        target: target
+                    }, {
                         className: 'unlink',
                         icon: 'chain-broken',
                         text: _('babel.unlink') + ': ' + pagetitle + ' (' + target + ')',
@@ -239,6 +252,12 @@ Ext.extend(Babel.grid.ResourceMatrix, MODx.grid.Grid, {
                     break;
                 case 'update':
                     MODx.loadPage('resource/update', 'id=' + t.dataset.target);
+                    break;
+                case 'refresh':
+                    this.refreshTranslation(t.dataset.ctx, record.get('id'));
+                    break;
+                case 'refresh-multiple':
+                    this.refreshTranslation('', record.get('id'));
                     break;
                 case 'unlink':
                     this.unlinkTranslation(t.dataset.ctx, record.get('id'));
