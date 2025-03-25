@@ -44,7 +44,7 @@ Babel.grid.ResourceMatrix = function (config) {
             menuDisabled: true,
             fixed: true,
             locked: true,
-            width: 80
+            width: 85
         }];
         Ext.each(config.contexts, function (item) {
             fields.push('linkedres_id_' + item);
@@ -52,7 +52,7 @@ Babel.grid.ResourceMatrix = function (config) {
             contexts.push(item);
             columns.push({
                 header: item,
-                width: 80,
+                width: 85,
                 sortable: false,
                 dataIndex: 'linkedres_id_' + item,
                 id: 'linkedres_id_' + item,
