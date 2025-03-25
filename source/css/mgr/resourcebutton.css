@@ -34,3 +34,8 @@
 .x-fieldset.x-fieldset-check-all .x-form-item-check-all .x-form-cb-label:before {
   font-size: initial;
 }
+
+.x-menu-babel {
+  max-height: 99vh;
+  overflow-y: scroll;
+}

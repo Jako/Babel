@@ -130,6 +130,7 @@ Ext.extend(babel, Ext.Component, {
                     },
                     mouseover: function (btn) {
                         btn.showMenu();
+                        this.menu.addClass('x-menu-babel');
                     }
                 }
             });

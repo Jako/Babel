@@ -34,6 +34,7 @@ namespace mikrobi\Babel;
 
 use mikrobi\Babel\Helper\Parse;
 use mikrobi\Babel\LanguageSubtagRegistry\LanguageSubtagRegistry;
+use modContextSetting;
 use modResource;
 use modSystemEvent;
 use modTemplateVar;
@@ -66,7 +67,7 @@ class Babel
      * The version
      * @var string $version
      */
-    public $version = '3.5.0-b2';
+    public $version = '3.5.0-b3';
 
     /**
      * The class config
@@ -925,6 +926,7 @@ class Babel
      */
     private function getContextSetting($contextKey, $settingKey)
     {
+        /** @var modContextSetting $contextSetting */
         $contextSetting = $this->modx->getObject('modContextSetting', [
             'context_key' => $contextKey,
             'key' => $settingKey,

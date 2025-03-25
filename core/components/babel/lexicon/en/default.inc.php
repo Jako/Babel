@@ -41,6 +41,7 @@ $_lang['babel.link_successful'] = 'The resource was successful linked.';
 $_lang['babel.link_translation'] = 'Link to existing resource';
 $_lang['babel.open'] = 'Open';
 $_lang['babel.please_wait'] = 'Please wait …';
+$_lang['babel.refresh_cache'] = 'Clearing the [[+packagename]] cache';
 $_lang['babel.reset'] = 'Reset';
 $_lang['babel.resource_err_from_other_context'] = 'Resource [[+resource]] does not exist in context <b>"[[+context]]"</b>.';
 $_lang['babel.resource_err_invalid_id'] = '[[+resource]] is no valid resource id.';

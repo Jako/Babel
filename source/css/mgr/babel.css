@@ -35,6 +35,11 @@
   font-size: initial;
 }
 
+.x-menu-babel {
+  max-height: 99vh;
+  overflow-y: scroll;
+}
+
 /*!
  * Ext JS Library 3.4.0
  * Copyright(c) 2006-2011 Sencha Inc.
