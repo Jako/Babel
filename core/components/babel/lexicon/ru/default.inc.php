@@ -41,6 +41,7 @@ $_lang['babel.link_successful'] = 'Ресурс был успешно подкл
 $_lang['babel.link_translation'] = 'Связать с существующим ресурсом';
 $_lang['babel.open'] = 'Открыть';
 $_lang['babel.please_wait'] = 'Пожалуйста, подождите …';
+$_lang['babel.refresh_cache'] = 'Очистка кэша [[+packagename]]';
 $_lang['babel.reset'] = 'Сбросить';
 $_lang['babel.resource_err_delete_of_selflink_not_possible'] = 'Ссылка на ресурс не может быть удалена.';
 $_lang['babel.resource_err_from_other_context'] = 'Ресурс [[+resource]] не существует в контексте <b>«[[+context]]»</b>.';

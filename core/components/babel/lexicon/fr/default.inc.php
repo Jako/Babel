@@ -41,6 +41,7 @@ $_lang['babel.link_successful'] = 'La ressource a été liée avec succès.';
 $_lang['babel.link_translation'] = 'Lien vers une ressource existante';
 $_lang['babel.open'] = 'Ouvrir';
 $_lang['babel.please_wait'] = 'Veuillez patienter …';
+$_lang['babel.refresh_cache'] = 'Effacer le cache du [[+packagename]]';
 $_lang['babel.reset'] = 'Réinitialiser';
 $_lang['babel.resource_err_from_other_context'] = 'La ressource [[+resource]] n\'existe pas dans le context <b>"[[+context]]"</b>.';
 $_lang['babel.resource_err_invalid_id'] = '[[+resource]] n\'est pas un id valide de ressource.';

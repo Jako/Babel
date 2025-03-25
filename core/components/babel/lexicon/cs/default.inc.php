@@ -43,6 +43,7 @@ $_lang['babel.link_successful'] = 'Zdroj byl úspěšně propojen.';
 $_lang['babel.link_translation'] = 'Odkaz na existující zdroj';
 $_lang['babel.open'] = 'Otevřeno';
 $_lang['babel.please_wait'] = 'Počkejte prosím …';
+$_lang['babel.refresh_cache'] = 'Vymazání mezipaměti [[+jméno balíčku]]';
 $_lang['babel.reset'] = 'Obnovení';
 $_lang['babel.resource_err_from_other_context'] = 'Dokument [[+resource]] neexistuje v kontextu <b>"[[+context]]"</b>.';
 $_lang['babel.resource_err_invalid_id'] = '[[+resource]] není platné id dokumentu.';

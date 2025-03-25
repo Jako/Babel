@@ -83,3 +83,4 @@ $_lang['babel.update_multiple_translations_err_no_contexts'] = 'Non sono disponi
 $_lang['babel.update_multiple_translations_finished'] = 'Le risorse tradotte sono state aggiornate.';
 $_lang['babel.update_translation'] = 'Aggiornamento della traduzione';
 $_lang['babel.update_translation_confirm'] = 'Si è sicuri di voler aggiornare la traduzione di questa risorsa nel contesto <b>"[[+contesto]]"</b>?';
+$_lang['babel.refresh_cache'] = 'Cancellazione della cache di [[+packagename]]';

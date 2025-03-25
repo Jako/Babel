@@ -43,6 +43,7 @@ $_lang['babel.link_successful'] = 'O recurso foi ligado com êxito.';
 $_lang['babel.link_translation'] = 'Ligar a página (recurso) existente';
 $_lang['babel.open'] = 'Abrir';
 $_lang['babel.please_wait'] = 'Por favor, aguarde …';
+$_lang['babel.refresh_cache'] = 'Limpar a cache do [[+packagename]]';
 $_lang['babel.reset'] = 'Reiniciar';
 $_lang['babel.resource_err_from_other_context'] = 'A Página (recurso) [[+resource]] não existe no contexto <b>"[[+context]]"</b>.';
 $_lang['babel.resource_err_invalid_id'] = '[[+resource]] não é um ID de página (recurso) válida.';

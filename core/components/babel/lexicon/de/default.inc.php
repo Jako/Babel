@@ -41,6 +41,7 @@ $_lang['babel.link_successful'] = 'Die Ressource wurde erfolgreich verknüpft.';
 $_lang['babel.link_translation'] = 'Mit einer existierenden Ressource verknüpfen';
 $_lang['babel.open'] = 'Öffnen';
 $_lang['babel.please_wait'] = 'Bitte warten …';
+$_lang['babel.refresh_cache'] = 'Leeren des [[+packagename]]-Caches';
 $_lang['babel.reset'] = 'Zurücksetzen';
 $_lang['babel.resource_err_from_other_context'] = 'Die Ressource [[+resource]] befindet sich nicht im Kontext <b>"[[+context]]"</b>.';
 $_lang['babel.resource_err_invalid_id'] = '[[+resource]] ist keine gültige Ressourcen-ID.';

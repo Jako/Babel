@@ -43,6 +43,7 @@ $_lang['babel.link_successful'] = 'Resursa a fost legată cu succes.';
 $_lang['babel.link_translation'] = 'Legătura cu resursa existentă';
 $_lang['babel.open'] = 'Deschideți';
 $_lang['babel.please_wait'] = 'Vă rugăm să așteptați …';
+$_lang['babel.refresh_cache'] = 'Curățarea cache-ului [[+packagename]]';
 $_lang['babel.reset'] = 'Resetare';
 $_lang['babel.resource_err_from_other_context'] = 'Resursa [[+resource]] nu există în contextul <b>"[[+context]]"</b>.';
 $_lang['babel.resource_err_invalid_id'] = '[[+resource]] nu este un id vaild.';
