@@ -36,6 +36,6 @@
 }
 
 .x-menu-babel {
-  max-height: 99vh;
-  overflow-y: scroll;
+  max-height: 74vh;
+  overflow-y: auto;
 }

@@ -67,7 +67,7 @@ class Babel
      * The version
      * @var string $version
      */
-    public $version = '3.5.0-b3';
+    public $version = '3.5.0-b4';
 
     /**
      * The class config
@@ -823,6 +823,13 @@ class Babel
                 $displayText = $context->get('name') . ' (' . $contextKey . ')';
             } elseif ($this->getOption('displayText') == 'combination') {
                 $displayText = $context->get('name') . ' (' . $contextKey . ') - ' . $languages[$cultureKey]['Description'] . ' (' . (!empty($cultureKey) ? $cultureKey : $contextKey) . ')';
+            } elseif ($this->getOption('displayText') == 'chunk') {
+                $displayText = $this->parse->getChunk($this->getOption('displayChunk'), [
+                    'name' => $context->get('name'),
+                    'context_key' => $contextKey,
+                    'cultureKey' => $cultureKey,
+                    'description' => $languages[$cultureKey]['Description'],
+                ]);
             } else {
                 $displayText = $languages[$cultureKey]['Description'] . ' (' . (!empty($cultureKey) ? $cultureKey : $contextKey) . ')';
             }
@@ -893,7 +900,7 @@ class Babel
      * @param modResource $linkedResource
      * @return array
      */
-    private function changeTVs($syncTvs, int $resource, $linkedResource)
+    private function changeTVs($syncTvs, $resource, $linkedResource)
     {
         $tvChanges = [];
         foreach ($syncTvs as $tvId) {

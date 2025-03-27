@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enable/disable babel.syncFields and babel.syncTVs with context settings - thanks to A Demyanenko <https://github.com/rs-a-demyanenko>
 - Sync babel.syncFields and babel.syncTVs context settings in grouped contexts - thanks to A Demyanenko <https://github.com/rs-a-demyanenko>
 - The babel button menu will have a scroll bar, with a large count of contexts
+- Add a new system setting `babel.displayChunk`. that can define a chunk for `babel.displayText` system setting
 
 ## [3.4.0] - 2024-10-13
 
