@@ -67,7 +67,7 @@ class Babel
      * The version
      * @var string $version
      */
-    public $version = '3.5.0-b4';
+    public $version = '3.5.0-b5';
 
     /**
      * The class config
@@ -416,7 +416,9 @@ class Babel
                 }
                 /** @var modResource $linkedResource */
                 $linkedResource = $this->modx->getObject('modResource', $linkedResourceId);
-                $tvChanges = array_merge($tvChanges, $this->changeTVs($syncTvs, $resource, $linkedResource));
+                if ($linkedResource) {
+                    $tvChanges = array_merge($tvChanges, $this->changeTVs($syncTvs, $resource, $linkedResource));
+                }
             }
         }
 
@@ -510,12 +512,12 @@ class Babel
     }
 
     /**
-     * Reset the linked resource with the values of the specified resource.
+     * Refresh the linked resource with the values of the specified resource.
      *
      * @param modResource $resource
      * @param modResource $linkedResource
      */
-    public function resetResource($resource, $linkedResource)
+    public function refreshResource($resource, $linkedResource)
     {
         $resourceArray = $resource->toArray('', true);
         unset($resourceArray['id'], $resourceArray['parent'], $resourceArray['createdby'], $resourceArray['createdon'], $resourceArray['editedby'], $resourceArray['editedon'], $resourceArray['deleted'], $resourceArray['deletedon'], $resourceArray['deletedby'], $resourceArray['published'], $resourceArray['publishedon'], $resourceArray['publishedby'], $resourceArray['context_key']);

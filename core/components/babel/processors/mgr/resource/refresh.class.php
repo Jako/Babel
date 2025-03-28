@@ -1,6 +1,6 @@
 <?php
 /**
- * Reset resource
+ * Refresh resource
  *
  * @package babel
  * @subpackage processors
@@ -8,7 +8,7 @@
 
 use mikrobi\Babel\Processors\ObjectUpdateProcessor;
 
-class BabelResourceResetProcessor extends ObjectUpdateProcessor
+class BabelResourceRefreshProcessor extends ObjectUpdateProcessor
 {
     public $classKey = 'modResource';
     public $objectType = 'resource';
@@ -57,7 +57,7 @@ class BabelResourceResetProcessor extends ObjectUpdateProcessor
         /** @var modResource $linkedResource */
         $linkedResource = ($linkedResources[$context]) ? $this->modx->getObject($this->classKey, $linkedResources[$context]) : null;
         if ($linkedResource) {
-            $this->linkedObject = $this->babel->resetResource($this->object, $linkedResource);
+            $this->linkedObject = $this->babel->refreshResource($this->object, $linkedResource);
         }
 
         if (!$this->linkedObject) {
@@ -121,4 +121,4 @@ class BabelResourceResetProcessor extends ObjectUpdateProcessor
     }
 }
 
-return 'BabelResourceResetProcessor';
+return 'BabelResourceRefreshProcessor';
