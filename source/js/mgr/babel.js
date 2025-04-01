@@ -657,6 +657,7 @@ Ext.extend(babel, Ext.Component, {
                 xtype: 'modx-window',
                 title: _('babel.create_multiple_translations'),
                 closeAction: 'close',
+                width: 500,
                 fields: [{
                     xtype: 'fieldset',
                     cls: 'x-fieldset-check-all',

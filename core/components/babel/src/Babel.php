@@ -67,7 +67,7 @@ class Babel
      * The version
      * @var string $version
      */
-    public $version = '3.5.0-b5';
+    public $version = '3.5.0-b7';
 
     /**
      * The class config
@@ -169,6 +169,7 @@ class Babel
             'contextKeys' => $this->modx->getOption($this->namespace . '.contextKeys', null, ''),
             'restrictToGroup' => $this->getBooleanOption('restrictToGroup', [], true),
             'displayText' => $this->modx->getOption($this->namespace . '.displayText', null, 'language'),
+            'displayChunk' => $this->modx->getOption($this->namespace . '.displayChunk', null, 'tplBabelContextMenu'),
             'syncTvs' => $this->getExplodeSeparatedOption('syncTvs', [], ''),
             'syncFields' => $this->getExplodeSeparatedOption('syncFields', [], ''),
             'babelTvName' => $this->modx->getOption($this->namespace . '.babelTvName', null, 'babelLanguageLinks'),
@@ -344,12 +345,14 @@ class Babel
             return;
         }
 
+        $fieldChanges = [];
         if ($targetId) {
             /** @var modResource $linkedResource */
             $linkedResource = $this->modx->getObject('modResource', $targetId);
-            $fieldChanges = [$this->changeFields($syncFields, $resource, $linkedResource)];
+            if ($linkedResource) {
+                $fieldChanges = [$this->changeFields($syncFields, $resource, $linkedResource)];
+            }
         } else {
-            $fieldChanges = [];
             $linkedResourceIds = $this->getLinkedResources($resourceId);
             if (empty($linkedResourceIds)) {
                 $linkedResourceIds = $this->initBabelTvById($resourceId);
@@ -362,7 +365,9 @@ class Babel
                 }
                 /** @var modResource $linkedResource */
                 $linkedResource = $this->modx->getObject('modResource', $linkedResourceId);
-                $fieldChanges = array_merge($fieldChanges, $this->changeFields($syncFields, $resource, $linkedResource));
+                if ($linkedResource) {
+                    $fieldChanges = array_merge($fieldChanges, $this->changeFields($syncFields, $resource, $linkedResource));
+                }
             }
         }
 
@@ -399,10 +404,14 @@ class Babel
             return;
         }
 
+        $tvChanges = [];
         if ($targetId) {
-            $tvChanges = [$this->changeTVs($syncTvs, $resource, $targetId)];
+            /** @var modResource $linkedResource */
+            $linkedResource = $this->modx->getObject('modResource', $targetId);
+            if ($linkedResource) {
+                $tvChanges = [$this->changeTVs($syncTvs, $resource, $linkedResource)];
+            }
         } else {
-            $tvChanges = [];
             $linkedResourceIds = $this->getLinkedResources($resourceId);
             // Check if Babel TV has been initiated for the specified resource
             if (empty($linkedResourceIds)) {
