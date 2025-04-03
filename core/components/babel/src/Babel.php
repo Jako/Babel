@@ -67,7 +67,7 @@ class Babel
      * The version
      * @var string $version
      */
-    public $version = '3.5.0-b7';
+    public $version = '3.5.0';
 
     /**
      * The class config
@@ -542,6 +542,13 @@ class Babel
                     'contentid' => $linkedResource->get('id'),
                     'tmplvarid' => $templateVarResource->get('tmplvarid')
                 ]);
+                if (!$linkedTemplateVarResource) {
+                    $linkedTemplateVarResource = $this->modx->newObject('modTemplateVarResource');
+                    $linkedTemplateVarResource->fromArray([
+                        'contentid' => $linkedResource->get('id'),
+                        'tmplvarid' => $templateVarResource->get('tmplvarid')
+                    ]);
+                }
                 $linkedTemplateVarResource->set('value', $templateVarResource->get('value'));
                 $linkedTemplateVarResource->save();
             }
