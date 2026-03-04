@@ -655,7 +655,7 @@ class Babel
             $contexts = array_keys($linkedResources);
             foreach ($resourceIds as $resourceId) {
                 $resource = $this->modx->getObject('modResource', $resourceId);
-                $contexts[] = [$resource->get('context_key')];
+                $contexts[] = $resource->get('context_key');
             }
             $this->modx->cacheManager->refresh([
                 'babel' => [],
