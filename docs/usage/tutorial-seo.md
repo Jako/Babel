@@ -90,7 +90,7 @@ up multilingual websites and one additional step:
         use subfolders and additionally specifiy the `base_url` according to the context's
         `cultureKey`.
 
-    !!! hint
+    !!! hint "Use CrossContextsSettings"
     
         You should also define settings like `site_start` `error_page` etc. for each of
         your contexts. To maintain this entries a lot easier you can use the MODX Extra

@@ -95,7 +95,8 @@ mistakes which have been made by users who requested my help:
 
 !!! important
 
-    I've described a more SEO-friendly approach in a new article which you may want to read, too.
+    I've described a more SEO-friendly approach in a new article which you may want
+    to read, too.
 
 If you’re still having problem regarding your multilingual site and Babel have a
 look at the [closed issues](https://github.com/mikrobi/babel/issues/closed) on
