@@ -1,6 +1,6 @@
 ## Multilingual Websites with MODx and Babel
 
-!!! caution "This is old!"
+!!! warning "This is old!"
 
     This tutorial is a slightly modernized version of the [old blog
     entry](https://web.archive.org/web/20181010174256/http://www.multilingual-modx.com/blog/2011/multilingual-websites-with-modx-and-babel.html)
