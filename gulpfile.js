@@ -123,7 +123,7 @@ const bumpAbout = function () {
 };
 const bumpDocs = function () {
     return gulp.src([
-        'mkdocs.yml',
+        'zensical.toml',
     ], {base: './'})
         .pipe(replace(/&copy; 2010(-\d{4})?/g, '&copy; ' + (year > 2010 ? '2010-' : '') + year))
         .pipe(gulp.dest('.'));
