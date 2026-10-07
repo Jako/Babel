@@ -1,6 +1,7 @@
 {
   "name": "mikrobi/babel",
   "description": "The easy way for your multilingual site!",
+  "version": "3.5.7",
   "authors": [
     {
       "name": "Jakob Class",
